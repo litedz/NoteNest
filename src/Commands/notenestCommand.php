@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace App\notenest\notenest\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class notenestCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'notenest';
 
     public $description = 'My command';
 
