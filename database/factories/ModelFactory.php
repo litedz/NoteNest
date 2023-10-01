@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-namespace App\notenest\notenest\Database\Factories;
-=======
 namespace notenest\notenest\Database\Factories;
->>>>>>> Fixnest
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
