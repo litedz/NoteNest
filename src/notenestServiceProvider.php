@@ -5,6 +5,7 @@ namespace App\notenest\notenest;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use App\notenest\notenest\Commands\notenestCommand;
+use Illuminate\Foundation\Console\AboutCommand;
 
 class notenestServiceProvider extends PackageServiceProvider
 {
@@ -27,9 +28,11 @@ class notenestServiceProvider extends PackageServiceProvider
      */
     public function boot(): void
     {
+        AboutCommand::add('Note Nest', fn () => ['Version' => '1.0.0']);
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'notenest');
         $this->publishes([
             __DIR__ . '../config/notenest.php' => config_path('notenest.php'),
         ]);
-        
     }
 }

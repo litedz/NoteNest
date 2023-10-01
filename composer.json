@@ -91,6 +91,12 @@
             }
         }
     },
+    "repositories": [
+        {
+          "type": "path",
+          "url": "local/bar-project"
+        }
+      ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }

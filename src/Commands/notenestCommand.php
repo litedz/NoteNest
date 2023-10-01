@@ -12,7 +12,7 @@ class notenestCommand extends Command
 
     public function handle(): int
     {
-        $this->comment('All done');
+        $this->comment('Notenest Install');
 
         return self::SUCCESS;
     }

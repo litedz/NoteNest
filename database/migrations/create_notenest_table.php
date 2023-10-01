@@ -8,11 +8,10 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('notenest_table', function (Blueprint $table) {
+      Schema::create('notes', function (Blueprint $table) {
             $table->id();
-
-            // add fields
-
+            $table->string('name');
+            $table->string('description')->unique();
             $table->timestamps();
         });
     }
