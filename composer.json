@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "App\notenest\\notenest\\": "src/",
-            "App\notenest\\notenest\\Database\\Factories\\": "database/factories/"
+            "App\\notenest\\notenest\\": "src/",
+            "App\\notenest\\notenest\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\notenest\\notenest\\Tests\\": "tests/",
+            "App\\notenest\\notenest\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/",
             "Workbench\\Database\\Factories\\": "workbench/database/factories/",
             "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
@@ -91,12 +91,6 @@
             }
         }
     },
-    "repositories": [
-        {
-          "type": "path",
-          "url": "local/bar-project"
-        }
-      ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }

@@ -6,8 +6,9 @@ use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use App\notenest\notenest\Commands\notenestCommand;
 use Illuminate\Foundation\Console\AboutCommand;
+use Illuminate\Support\ServiceProvider;
 
-class notenestServiceProvider extends PackageServiceProvider
+class notenestServiceProvider extends ServiceProvider
 {
     public function configurePackage(Package $package): void
     {
