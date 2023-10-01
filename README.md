@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # NoteNest is a powerful PHP and Livewire package, seamlessly integrated with Alpine.js, designed to simplify and enhance your note-taking capabilities within your web projects.
+=======
+# This is my package notenest
+>>>>>>> Fixnest
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/notenest/notenest.svg?style=flat-square)](https://packagist.org/packages/notenest/notenest)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/notenest/notenest/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/notenest/notenest/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -52,8 +56,13 @@ php artisan vendor:publish --tag="notenest-views"
 ## Usage
 
 ```php
+<<<<<<< HEAD
 $notenest = new App\notenest\notenest();
 echo $notenest->echoPhrase('Hello, App\notenest!');
+=======
+$notenest = new notenest\notenest();
+echo $notenest->echoPhrase('Hello, notenest!');
+>>>>>>> Fixnest
 ```
 
 ## Testing

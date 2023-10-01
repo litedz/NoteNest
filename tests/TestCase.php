@@ -1,10 +1,18 @@
 <?php
 
+<<<<<<< HEAD
 namespace App\notenest\notenest\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 use App\notenest\notenest\notenestServiceProvider;
+=======
+namespace notenest\notenest\Tests;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Orchestra\Testbench\TestCase as Orchestra;
+use notenest\notenest\notenestServiceProvider;
+>>>>>>> Fixnest
 
 class TestCase extends Orchestra
 {
@@ -13,7 +21,11 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
+<<<<<<< HEAD
             fn (string $modelName) => 'App\notenest\\notenest\\Database\\Factories\\'.class_basename($modelName).'Factory'
+=======
+            fn (string $modelName) => 'notenest\\notenest\\Database\\Factories\\'.class_basename($modelName).'Factory'
+>>>>>>> Fixnest
         );
     }
 

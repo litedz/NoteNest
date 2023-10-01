@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 namespace App\notenest\notenest\Commands;
+=======
+namespace notenest\notenest\Commands;
+>>>>>>> Fixnest
 
 use Illuminate\Console\Command;
 

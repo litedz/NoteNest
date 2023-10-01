@@ -1,6 +1,10 @@
 {
     "name": "notenest/notenest",
+<<<<<<< HEAD
     "description": "NoteNest is a powerful PHP and Livewire package, seamlessly integrated with Alpine.js, designed to simplify and enhance your note-taking capabilities within your web projects.",
+=======
+    "description": "This is my package notenest",
+>>>>>>> Fixnest
     "keywords": [
         "notenest",
         "laravel",
@@ -35,12 +39,18 @@
     },
     "autoload": {
         "psr-4": {
+<<<<<<< HEAD
             "App\\notenest\\notenest\\": "src/",
             "App\\notenest\\notenest\\Database\\Factories\\": "database/factories/"
+=======
+            "notenest\\notenest\\": "src/",
+            "notenest\\notenest\\Database\\Factories\\": "database/factories/"
+>>>>>>> Fixnest
         }
     },
     "autoload-dev": {
         "psr-4": {
+<<<<<<< HEAD
             "App\\notenest\\notenest\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/",
             "Workbench\\Database\\Factories\\": "workbench/database/factories/",
@@ -54,6 +64,15 @@
             "@composer run prepare"
         ],
         "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+=======
+            "notenest\\notenest\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@composer run prepare",
+        "clear": "@php vendor/bin/testbench package:purge-notenest --ansi",
+>>>>>>> Fixnest
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "build": "@php vendor/bin/testbench workbench:build --ansi",
         "start": [
@@ -84,10 +103,17 @@
     "extra": {
         "laravel": {
             "providers": [
+<<<<<<< HEAD
                 "App\notenest\\notenest\\notenestServiceProvider"
             ],
             "aliases": {
                 "notenest": "App\notenest\\notenest\\Facades\\notenest"
+=======
+                "notenest\\notenest\\notenestServiceProvider"
+            ],
+            "aliases": {
+                "notenest": "notenest\\notenest\\Facades\\notenest"
+>>>>>>> Fixnest
             }
         }
     },
