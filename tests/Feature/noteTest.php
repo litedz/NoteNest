@@ -1,15 +1,11 @@
 <?php
 
-namespace App\notenest\notenest\Tests\notetest;
-use Orchestra\Testbench\TestCase;
+use Livewire\Component;
+use function Pest\Livewire\livewire;
+use function Pest\Faker\fake;
+use Livewire\Livewire;
+use notenest\notenest\app\livewire\Note;
 
-class noteTest extends TestCase
-{
-
-    public function test_it_test()  {
-        $this->assertTrue(true);
-    }
-    public function test_it_tbabla()  {
-        // dd('xxxxx');
-    }
-}
+test('can render view', function () {
+    Livewire::test(Note::class)->assertStatus(200);
+});

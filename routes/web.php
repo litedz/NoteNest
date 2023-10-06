@@ -2,6 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/Note',function(){
-    return view('notenest::index');
+Route::get('/note',function(){
+    return view('notenest::table');
 });

@@ -1,5 +1,9 @@
 <?php
 
-it('can test', function () {
-    expect(true)->toBeTrue();
-});
+use notenest\notenest\app\livewire\Note;
+
+use function Pest\Livewire\livewire;
+
+test('can render view',function ()  {
+    livewire(Note::class)->assertHasNoErrors();
+ });
