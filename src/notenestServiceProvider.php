@@ -31,17 +31,13 @@ class notenestServiceProvider extends PackageServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'notenest');
+
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/notenest'),
-        ]);
-        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/notenest'),
             __DIR__ . '/../config/notenest.php' => config_path('notenest.php'),
-        ], 'notenest');
-        $this->publishes([
-            __DIR__ . '/../config/courier.php' => config_path('courier.php'),
-        ]);
+        ],'notenest');
         Livewire::component('Note', Note::class);
         
     }
