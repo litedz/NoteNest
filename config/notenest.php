@@ -3,5 +3,5 @@
 // config for App\notenest/notenest
 return [
 
-    'layout' => 'notenest::app',
+    'layout' => 'notenest::note-app',
 ];

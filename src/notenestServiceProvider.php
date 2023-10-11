@@ -3,7 +3,7 @@
 namespace notenest\notenest;
 
 use Livewire\Livewire;
-use notenest\notenest\app\livewire\Note;
+use notenest\notenest\Livewire\Note;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use notenest\notenest\Commands\notenestCommand;
@@ -26,19 +26,23 @@ class notenestServiceProvider extends PackageServiceProvider
     }
     public function register()
     {
-       
     }
     public function boot()
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'notenest');
 
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/livewire'),
+        ], 'notenest-views');
+        $this->publishes([
+            __DIR__ . '/../resources/js' => resource_path('js'),
+        ], 'notenest-js');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/notenest'),
-            __DIR__ . '/../config/notenest.php' => config_path('notenest.php'),
-        ],'notenest');
+            __DIR__.'/../public' => public_path('vendor/notenest'),
+        ], 'notenest-public');
+
+
         Livewire::component('Note', Note::class);
-        
     }
 }

@@ -2,6 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/note',function(){
-    return view('notenest::table');
-});
+// Route::get('/note',function(){
+//     return view('notenest::layouts.note-app');
+// });
