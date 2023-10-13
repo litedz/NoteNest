@@ -1,11 +1,18 @@
 <?php
 
-use Livewire\Component;
-use function Pest\Livewire\livewire;
-use function Pest\Faker\fake;
-use Livewire\Livewire;
-use notenest\notenest\app\livewire\Note;
+use notenest\notenest\Models\note;
 
+use function Pest\Livewire\livewire;
 test('can render view', function () {
-    Livewire::test(Note::class)->assertStatus(200);
+    Livewire('Note')->assertHasNoErrors();
+});
+test('can add  function', function () {
+    livewire('Note')->call('AddFunction')->assertHasNoErrors();
+});
+test('required name and description', function () {
+    // note::unguard();
+    livewire('Note')->call('AddFunction')
+    ->set('description','')
+    ->set('name','')
+    ->assertHasNoErrors();
 });

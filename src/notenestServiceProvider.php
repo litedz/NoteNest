@@ -29,6 +29,7 @@ class notenestServiceProvider extends PackageServiceProvider
     }
     public function boot()
     {
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'notenest');
 
         $this->publishes([
@@ -41,6 +42,10 @@ class notenestServiceProvider extends PackageServiceProvider
         $this->publishes([
             __DIR__.'/../public' => public_path('vendor/notenest'),
         ], 'notenest-public');
+
+        $this->publishes([
+            __DIR__.'/../database/migrations/' => database_path('migrations')
+        ], 'notenest-migrations');
 
 
         Livewire::component('Note', Note::class);
