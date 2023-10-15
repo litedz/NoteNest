@@ -2,6 +2,7 @@
 
 namespace notenest\notenest\Database\Factories;
 
+use ENUM\STATUS;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use notenest\notenest\Models\note;
 
@@ -12,8 +13,9 @@ class noteFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'first function',
+            'function_name' => 'first function',
             'description' => fake()->sentence(),
+            'status' => STATUS::AWAIT,
         ];
         
     }

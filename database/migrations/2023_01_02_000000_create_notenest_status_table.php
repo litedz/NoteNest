@@ -9,12 +9,19 @@ return new class extends Migration
     public function up()
     {
 
-      Schema::create('notes', function (Blueprint $table) {
+      Schema::create('status', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->string('status');
+            $table->enum('status',['IN_PROGRESS','ENDED','AWAIT']);
+            $table->timestamp('start_progress_at')->nullable();
             $table->timestamps();
         });
     }
+        /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('status');
+    }
+    
 };

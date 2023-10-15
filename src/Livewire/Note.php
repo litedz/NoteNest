@@ -42,11 +42,17 @@ class Note extends Component
         return response()->json('success');
     }
 
-    #[On('start-time')]
-    public function startTimeProgression()
+    #[On('start-progress-function')]
+    public function FunInProgress()
     {
-        dd('time started');
+        // dd('start-progress-function');
     }
+    #[On('function-ended')]
+    public function FunEnded()
+    {
+        // dd('time started');
+    }
+
     public function render()
     {
         return view('notenest::notes');
