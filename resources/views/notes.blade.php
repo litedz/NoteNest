@@ -1,10 +1,10 @@
 <div>
     <div x-data="{ open: false, formFunctions: false }">
-        <button @click="open =true" class="text-white p-2 rounded-lg text-xs fixed left-0 top-0 m-2 z-40 bg-green-500"
+        <button @click="open = true" class="text-white p-2 rounded-lg text-xs fixed left-10 top-0 m-2 z-40 bg-green-500"
             type="button">Click me </button>
         <div class="fixed top-0  right-0 w-full h-full z-40 " x-show="open" x-transition>
             <span class="absolute right-0 top-0 fa fa-remove z-50 text-white font-bold text-lg cursor-pointer m-3"
-                @click="open =false"></span>
+                @click="open = false"></span>
             <div class="overlay absolute top-0 left-0 z-10 bg-gray-700 opacity-30 h-full w-full"></div>
             <div class="list py-14" x-show="!formFunctions">
                 <div
@@ -20,30 +20,13 @@
                             </div>
                             <div class="notes">
                                 <ul class="gap-4 grid" id="current-func">
+                                @foreach($AvailableFuncs as $func)
                                     <li
                                         class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pt-2 pb-2 px-1 hover:cursor-pointer">
                                         <span class="fa fa-circle text-[8px] text-red-400"></span>
-                                        <span class="text-xs"> Edit profile.</span>
+                                        <span class="text-xs">{{$func->name}}</span>
                                     </li>
-                                    <li
-                                        class="flex flex-row gap-2 items-baseline border-b-2 pb-2 px-1 hover:cursor-pointer">
-                                        <span class="fa fa-circle text-[8px] text-red-400"></span>
-                                        <span class="text-xs"> authantication </span>
-                                    </li>
-                                    <li
-                                        class="flex flex-row gap-2 items-baseline border-b-2 pb-2 px-1 hover:cursor-pointer">
-                                        <span class="fa fa-circle text-[8px] text-red-400"></span>
-                                        <span class="text-xs"> Home page.</span>
-                                    </li>
-                                    <li
-                                        class="flex flex-row gap-2 items-baseline border-b-2 pb-2 px-1 hover:cursor-pointer">
-                                        <span class="fa fa-circle text-[8px] text-red-400"></span>
-                                        <span class="text-xs">Logout.</span>
-                                    </li>
-                                    <li class="text-center pb-2 hover:cursor-pointer" @click="formFunctions = true">
-                                        <span class="fa fa-plus text-slate-400"></span>
-
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -146,7 +129,6 @@
                     <label for="description" class="block mb-2 text-sm font-medium text-gray-900">description
                         :</label>
                     <textarea id="description" rows="4"
-                    x-model=""
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="description function..."></textarea>
                 </div>

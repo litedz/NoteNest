@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->timestamp('start_progression');
+            $table->string('status');
             $table->timestamps();
         });
     }

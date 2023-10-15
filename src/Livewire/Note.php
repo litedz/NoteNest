@@ -2,6 +2,7 @@
 
 namespace notenest\notenest\Livewire;
 
+use Livewire\Attributes\On;
 use Livewire\Component;
 use notenest\notenest\Models\note as ModelsNote;
 use notenest\notenest\Models\project;
@@ -10,8 +11,9 @@ class Note extends Component
 {
     protected static $layout = ['layout' => 'notenest::layouts.note-app', 'section' => 'content'];
     protected static string $view = 'notenest::notes';
-    protected $rules =[
-        'name' => 'required',
+    public $AvailableFuncs;
+    protected $rules = [
+        'functionName' => 'required',
         'description' => 'required',
     ];
 
@@ -22,9 +24,7 @@ class Note extends Component
 
     public function mount()
     {
-
-        
-
+        $this->AvailableFuncs = ModelsNote::get();
     }
     public function Hello()
     {
@@ -34,19 +34,19 @@ class Note extends Component
     public function AddFunction()
     {
         $this->validate();
-     
+
         ModelsNote::create([
-            'name' => 'test',
-            'description' => 'description lorem'
+            'name' => $this->functionName,
+            'description' => $this->description
         ]);
-        
+        return response()->json('success');
     }
 
-    // protected static function layout()
-    // {
-    //     return ['notenest::note-app'];
-    // }
-
+    #[On('start-time')]
+    public function startTimeProgression()
+    {
+        dd('time started');
+    }
     public function render()
     {
         return view('notenest::notes');
