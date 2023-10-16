@@ -5,7 +5,8 @@ namespace notenest\notenest\Livewire;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use notenest\notenest\Models\note as ModelsNote;
-use notenest\notenest\Models\project;
+use notenest\notenest\traits\status as TraitsStatus;
+use traits\STATUS;
 
 class Note extends Component
 {
@@ -26,18 +27,14 @@ class Note extends Component
     {
         $this->AvailableFuncs = ModelsNote::get();
     }
-    public function Hello()
-    {
-        dd('Hello');
-    }
-
-    public function AddFunction()
+    public function AddFunction($status_id)
     {
         $this->validate();
 
         ModelsNote::create([
-            'name' => $this->functionName,
-            'description' => $this->description
+            'function_name' => $this->functionName,
+            'description' => $this->description,
+            'status_id' => $status_id,
         ]);
         return response()->json('success');
     }

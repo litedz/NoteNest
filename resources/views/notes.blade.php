@@ -24,7 +24,7 @@
                                     <li
                                         class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pt-2 pb-2 px-1 hover:cursor-pointer">
                                         <span class="fa fa-circle text-[8px] text-red-400"></span>
-                                        <span class="text-xs">{{$func->name}}</span>
+                                        <span class="text-xs">{{$func->function_name}}</span>
                                     </li>
                                     @endforeach
                                 </ul>

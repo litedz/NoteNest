@@ -3,19 +3,20 @@
 namespace notenest\notenest\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use notenest\notenest\Models\note;
-use traits\STATUS;
+use notenest\notenest\Models\status_func;
+use notenest\notenest\traits\status;
 
-class noteFactory extends Factory
+class statusFactory extends Factory
 {
-    protected $model =note::class;
+
+    protected $model =status_func::class;
 
     public function definition()
     {
         return [
             'function_name' => 'first function',
             'description' => fake()->sentence(),
-            'status_id' => 1,
+            'status' => status::$AWAIT,
         ];
         
     }

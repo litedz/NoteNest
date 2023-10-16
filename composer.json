@@ -40,7 +40,8 @@
     "autoload": {
         "psr-4": {
             "notenest\\notenest\\": "src/",
-            "notenest\\notenest\\Database\\Factories\\": "database/factories/"
+            "notenest\\notenest\\Database\\Factories\\": "database/factories/",
+            "notenest\\notenest\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {

@@ -5,9 +5,10 @@ namespace notenest\notenest\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class note extends Model
+class status_func extends Model
 {
     use HasFactory;
-    protected $fillable=['function_name','description','status_id'];
-
+    protected $fillable=['status'];
 }
+
+
