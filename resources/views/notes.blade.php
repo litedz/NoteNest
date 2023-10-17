@@ -1,5 +1,5 @@
 <div>
-    <div x-data="{ open: false, formFunctions: false }">
+    <div x-data="{ open: false, formFunctions: false }"  @progress.window="$wire.FunInProgress($event.detail)">
         <button @click="open = true" class="text-white p-2 rounded-lg text-xs fixed left-10 top-0 m-2 z-40 bg-green-500"
             type="button">Click me </button>
         <div class="fixed top-0  right-0 w-full h-full z-40 " x-show="open" x-transition>
@@ -44,6 +44,7 @@
                                 <ul class="gap-4 grid" id="progress-func">
                                 @foreach($FuncsInProgress as $FunProgress)
                                     <li
+                                     id="{{$FunProgress->id}}"
                                         class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
                                         <div>
                                             <span class="fa fa-circle text-[8px] text-yellow-400"></span>

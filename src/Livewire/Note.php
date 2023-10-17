@@ -4,6 +4,7 @@ namespace notenest\notenest\Livewire;
 
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\Features\SupportEvents\Event;
 use notenest\notenest\Models\note as ModelsNote;
 use notenest\notenest\traits\status;
 
@@ -55,17 +56,14 @@ class Note extends Component
         return response()->json('success');
     }
 
-    #[On('start-progress-function')]
-    public function FunInProgress()
+    public function FunInProgress($func_id)
     {
 
-        dd($this);
-        // dd('');
-        // die();
-        // $UpdateStatus = $this->FuncsInProgress = ModelsNote::where('id',$func_id)->update([
-        //     'status_id' => status::$IN_PROGRESS
-        // ]);
-        // $this->GetFuncs();
+
+        $UpdateStatus = $this->FuncsInProgress = ModelsNote::where('id', $func_id)->update([
+            'status_id' => status::$IN_PROGRESS
+        ]);
+        $this->GetFuncs();
     }
 
     #[On('function-ended')]
