@@ -19,9 +19,10 @@
                                 </div>
                             </div>
                             <div class="notes">
-                                <ul class="gap-4 grid" id="current-func">
+                                <ul class="gap-4 grid h-96 overflow-y-auto" id="current-func">
                                 @foreach($AvailableFuncs as $func)
                                     <li
+                                    id="{{$func->id}}"
                                         class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pt-2 pb-2 px-1 hover:cursor-pointer">
                                         <span class="fa fa-circle text-[8px] text-red-400"></span>
                                         <span class="text-xs">{{$func->function_name}}</span>
@@ -41,31 +42,17 @@
                             </div>
                             <div class="notes">
                                 <ul class="gap-4 grid" id="progress-func">
-
+                                @foreach($FuncsInProgress as $FunProgress)
                                     <li
                                         class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
                                         <div>
                                             <span class="fa fa-circle text-[8px] text-yellow-400"></span>
-                                            <span class="text-xs"> Edit profile.</span>
+                                            <span class="text-xs">{{$FunProgress->function_name}}.</span>
                                         </div>
                                         <span class="time text-slate-500 text-[8px]">20 min</span>
 
                                     </li>
-                                    <li
-                                        class="flex flex-row gap-2 items-baseline border-b-2 pb-2 px-1 hover:cursor-pointer">
-                                        <span class="fa fa-circle text-[8px] text-yellow-400"></span>
-                                        <span class="text-xs"> authantication </span>
-                                    </li>
-                                    <li
-                                        class="flex flex-row gap-2 items-baseline border-b-2 pb-2 px-1 hover:cursor-pointer">
-                                        <span class="fa fa-circle text-[8px] text-yellow-400"></span>
-                                        <span class="text-xs"> Home page.</span>
-                                    </li>
-                                    <li
-                                        class="flex flex-row gap-2 items-baseline border-b-2 pb-2 px-1 hover:cursor-pointer">
-                                        <span class="fa fa-circle text-[8px] text-yellow-400"></span>
-                                        <span class="text-xs">Logout.</span>
-                                    </li>
+                                @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -80,30 +67,18 @@
                             </div>
                             <div class="notes">
                                 <ul class="gap-4 grid" id="finished-func">
+                                @foreach($FuncsEnded as $funcEnded)
                                     <li
                                         class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
                                         <div>
                                             <span class="fa fa-check text-[8px] text-green-400"></span>
-                                            <span class="text-xs"> Edit profile.</span>
+                                            <span class="text-xs"> {{$funcEnded->function_name}}.</span>
                                         </div>
                                         <span class="time text-slate-500 text-[8px]">20 min</span>
 
                                     </li>
-                                    <li
-                                        class="flex flex-row gap-2 items-baseline border-b-2 pb-2 px-1 hover:cursor-pointer">
-                                        <span class="fa fa-check text-[8px] text-green-400"></span>
-                                        <span class="text-xs"> authantication </span>
-                                    </li>
-                                    <li
-                                        class="flex flex-row gap-2 items-baseline border-b-2 pb-2 px-1 hover:cursor-pointer">
-                                        <span class="fa fa-check text-[8px] text-green-400"></span>
-                                        <span class="text-xs"> Home page.</span>
-                                    </li>
-                                    <li
-                                        class="flex flex-row gap-2 items-baseline border-b-2 pb-2 px-1 hover:cursor-pointer">
-                                        <span class="fa fa-check text-[8px] text-green-400"></span>
-                                        <span class="text-xs">Logout.</span>
-                                    </li>
+                                @endforeach
+
                                 </ul>
                             </div>
                         </div>

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class status_func extends Model
 {
     use HasFactory;
-    protected $fillable=['status'];
+
+    protected $fillable = ['status'];
 }
-
-

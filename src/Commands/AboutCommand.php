@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Console\Command;
 
 class AboutCommand extends Command

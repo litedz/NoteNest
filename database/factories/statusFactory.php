@@ -8,8 +8,7 @@ use notenest\notenest\traits\status;
 
 class statusFactory extends Factory
 {
-
-    protected $model =status_func::class;
+    protected $model = status_func::class;
 
     public function definition()
     {
@@ -18,7 +17,6 @@ class statusFactory extends Factory
             'description' => fake()->sentence(),
             'status' => status::$AWAIT,
         ];
-        
-    }
 
+    }
 }
