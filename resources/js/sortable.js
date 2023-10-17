@@ -15,7 +15,7 @@ Sortable.create(current, {
         evt.item.childNodes[1].classList.add('text-red-400');
         evt.item.childNodes[1].classList.remove('fa-check');
         evt.item.childNodes[1].classList.add('fa-circle');
-        window.dispatchEvent(new Event("start-function"))
+        // window.dispatchEvent(new Event("start-function"))
     }
 
 });
@@ -27,7 +27,8 @@ Sortable.create(progress, {
         evt.item.childNodes[1].classList.add('text-yellow-400');
         evt.item.childNodes[1].classList.add('fa-circle');
         evt.item.childNodes[1].classList.remove('fa-check');
-        window.dispatchEvent(new Event("start-progress-function"))
+        console.log(evt.item.id);
+        window.dispatchEvent(new CustomEvent("progress", { detail: evt.item.id }));
     }
 });
 Sortable.create(finished, {
@@ -39,7 +40,15 @@ Sortable.create(finished, {
 
         evt.item.childNodes[1].classList.remove('fa-circle');
         evt.item.childNodes[1].classList.add('fa-check');
-        window.dispatchEvent(new Event("finish-function"))
+        // window.dispatchEvent(new Event("function-ended"))
     }
 });
+
+
+function testLive() {
+    let t = window.Livewire.getByName('Note');
+    t.$wire.call('FunInProgress');
+    console.log();
+    // t.call('FunInProgress');
+}
 
