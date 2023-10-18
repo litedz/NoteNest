@@ -4,6 +4,7 @@ namespace notenest\notenest\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use notenest\notenest\Models\note;
+use notenest\notenest\traits\status;
 
 class noteFactory extends Factory
 {
@@ -14,7 +15,7 @@ class noteFactory extends Factory
         return [
             'function_name' => 'first function',
             'description' => fake()->sentence(),
-            'status_id' => 1,
+            'status' => status::$AWAIT,
         ];
 
     }

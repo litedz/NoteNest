@@ -4,7 +4,6 @@ namespace notenest\notenest\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use notenest\notenest\Models\status_func;
-use notenest\notenest\traits\status;
 
 class statusFactory extends Factory
 {
@@ -13,9 +12,7 @@ class statusFactory extends Factory
     public function definition()
     {
         return [
-            'function_name' => 'first function',
-            'description' => fake()->sentence(),
-            'status' => status::$AWAIT,
+            'status' => 'AWAIT',
         ];
 
     }

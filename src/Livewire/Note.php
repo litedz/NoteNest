@@ -2,9 +2,7 @@
 
 namespace notenest\notenest\Livewire;
 
-use Livewire\Attributes\On;
 use Livewire\Component;
-use Livewire\Features\SupportEvents\Event;
 use notenest\notenest\Models\note as ModelsNote;
 use notenest\notenest\traits\status;
 
@@ -38,38 +36,36 @@ class Note extends Component
 
     public function GetFuncs()
     {
-        $this->AvailableFuncs = ModelsNote::where('status_id', status::$AWAIT)->get();
-        $this->FuncsInProgress = ModelsNote::where('status_id', status::$IN_PROGRESS)->get();
-        $this->FuncsEnded = ModelsNote::where('status_id', status::$ENDED)->get();
+        $this->AvailableFuncs = ModelsNote::where('status', status::$AWAIT)->get();
+        $this->FuncsInProgress = ModelsNote::where('status', status::$IN_PROGRESS)->get();
+        $this->FuncsEnded = ModelsNote::where('status', status::$ENDED)->get();
     }
 
-    public function AddFunction($status_id)
+    public function AddFunction()
     {
         $this->validate();
 
         ModelsNote::create([
             'function_name' => $this->functionName,
             'description' => $this->description,
-            'status_id' => $status_id,
         ]);
-
-        return response()->json('success');
     }
 
     public function FunInProgress($func_id)
     {
-
-
         $UpdateStatus = $this->FuncsInProgress = ModelsNote::where('id', $func_id)->update([
-            'status_id' => status::$IN_PROGRESS
+            'status' => status::$IN_PROGRESS,
         ]);
         $this->GetFuncs();
     }
 
-    #[On('function-ended')]
-    public function FunEnded()
+    public function FunEnded($func_id)
     {
-        // dd('time started');
+        $UpdateStatus = $this->FuncsInProgress = ModelsNote::where('id', $func_id)->update([
+            'status' => status::$ENDED,
+            'ended_at' => now(),
+        ]);
+        $this->GetFuncs();
     }
 
     public function render()

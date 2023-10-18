@@ -13,7 +13,9 @@ return new class extends Migration
             $table->id();
             $table->string('function_name');
             $table->string('description');
-            $table->foreignId('status_id')->constrained('status_funcs');
+            $table->enum('status', ['IN_PROGRESS', 'ENDED', 'AWAIT']);
+            $table->timestamp('start_progress_at')->nullable();
+            $table->timestamp('ended_at')->nullable();
             $table->timestamps();
         });
     }
