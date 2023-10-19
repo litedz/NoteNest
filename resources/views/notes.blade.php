@@ -17,7 +17,7 @@
                             <div class="text-center w-full bg-slate-200 py-2">
                                 <div class="flex items-center justify-center gap-3">
                                     <span class="capitalize">Functions</span><span
-                                        class="bg-red-300 rounded-full px-2 text-xs py-2 text-white font-bold">25</span>
+                                        class="bg-red-300 rounded-full px-2 text-xs py-2 text-white font-bold">{{count($AvailableFuncs)}}</span>
                                 </div>
                             </div>
 
@@ -41,17 +41,17 @@
                             <div class="text-center w-full bg-slate-200 py-2">
                                 <div class="flex items-center justify-center gap-3">
                                     <span class="capitalize">in Progress</span><span
-                                        class="bg-yellow-300 rounded-full px-2 text-xs py-2 text-white font-bold">25</span>
+                                        class="bg-yellow-300 rounded-full px-2 text-xs py-2 text-white font-bold">{{count($FuncsInProgress)}}</span>
                                 </div>
                             </div>
                             <div class="notes">
-                                <ul class="gap-4 grid" id="progress-func">
+                                <ul class="gap-4 grid h-96 overflow-y-auto" id="progress-func">
                                 @foreach($FuncsInProgress as $FunProgress)
                                     <li
                                      id="{{$FunProgress->id}}"
                                         class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
                                         <div>
-                                            <span class="fa fa-circle text-[8px] text-yellow-400"></span>
+                                            <span class="fa fa-solid fa-spinner text-[8px] text-yellow-400"></span>
                                             <span class="text-xs">{{$FunProgress->function_name}}.</span>
                                         </div>
                                         <span class="time text-slate-500 text-[8px]">{{$FunProgress->start_progress_at}}</span>
@@ -67,22 +67,24 @@
                             <div class="text-center w-full bg-slate-200 py-2">
                                 <div class="flex items-center justify-center gap-3">
                                     <span class="capitalize">Done</span><span
-                                        class="bg-green-300 rounded-full px-2 text-xs py-2 text-white font-bold">25</span>
+                                        class="bg-green-300 rounded-full px-2 text-xs py-2 text-white font-bold">{{count($FuncsEnded)}}</span>
                                 </div>
                             </div>
                             <div class="notes">
-                                <ul class="gap-4 grid" id="finished-func">
+                                <ul class="gap-4 grid h-96 overflow-y-auto" id="finished-func">
                                 @foreach($FuncsEnded as $funcEnded)
                                     <li
                                     id="{{$funcEnded->id}}"
                                         class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
                                         <div>
-                                            <span class="fa fa-check text-[8px] text-green-400"></span>
+                                            <span class="fa fa-check text-green-600 px-3"></span>
                                             <span class="text-xs"> {{$funcEnded->function_name}}.</span>
                                         </div>
-                                        <span class="time text-slate-500 text-[8px]">{{
-                                            $carbon->create($funcEnded->created_at)->diffForHumans()
-                                            }}</span>
+                                        <span class="time text-slate-500 text-[8px]">
+                                        {{
+                                            $carbon->create($funcEnded->created_at)->format('Y M d')
+                                        }}
+                                            </span>
 
                                     </li>
                                 @endforeach

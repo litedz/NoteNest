@@ -40,9 +40,9 @@ class Note extends Component
 
     public function GetFuncs()
     {
-        $this->AvailableFuncs = ModelsNote::where('status', status::$AWAIT)->get();
-        $this->FuncsInProgress = ModelsNote::where('status', status::$IN_PROGRESS)->get();
-        $this->FuncsEnded = ModelsNote::where('status', status::$ENDED)->get();
+        $this->AvailableFuncs = ModelsNote::where('status', status::$AWAIT)->orderBy('created_at','desc')->get();
+        $this->FuncsInProgress = ModelsNote::where('status', status::$IN_PROGRESS)->orderBy('created_at','desc')->get();
+        $this->FuncsEnded = ModelsNote::where('status', status::$ENDED)->orderBy('created_at','desc')->get();
     }
 
     public function AddFunction()
