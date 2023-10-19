@@ -1,5 +1,7 @@
 <div>
-    <div x-data="{ open: false, formFunctions: false }"  @progress.window="$wire.FunInProgress($event.detail)">
+    <div x-data="{ open: false, formFunctions: false }" 
+     @progress.window="$wire.FunInProgress($event.detail)" 
+     @done.window="$wire.FunEnded($event.detail)">
         <button @click="open = true" class="text-white p-2 rounded-lg text-xs fixed left-10 top-0 m-2 z-40 bg-green-500"
             type="button">Click me </button>
         <div class="fixed top-0  right-0 w-full h-full z-40 " x-show="open" x-transition>
@@ -18,6 +20,8 @@
                                         class="bg-red-300 rounded-full px-2 text-xs py-2 text-white font-bold">25</span>
                                 </div>
                             </div>
+
+                            @inject('carbon', 'Carbon\Carbon')
                             <div class="notes">
                                 <ul class="gap-4 grid h-96 overflow-y-auto" id="current-func">
                                 @foreach($AvailableFuncs as $func)
@@ -50,7 +54,7 @@
                                             <span class="fa fa-circle text-[8px] text-yellow-400"></span>
                                             <span class="text-xs">{{$FunProgress->function_name}}.</span>
                                         </div>
-                                        <span class="time text-slate-500 text-[8px]">20 min</span>
+                                        <span class="time text-slate-500 text-[8px]">{{$FunProgress->start_progress_at}}</span>
 
                                     </li>
                                 @endforeach
@@ -70,12 +74,15 @@
                                 <ul class="gap-4 grid" id="finished-func">
                                 @foreach($FuncsEnded as $funcEnded)
                                     <li
+                                    id="{{$funcEnded->id}}"
                                         class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
                                         <div>
                                             <span class="fa fa-check text-[8px] text-green-400"></span>
                                             <span class="text-xs"> {{$funcEnded->function_name}}.</span>
                                         </div>
-                                        <span class="time text-slate-500 text-[8px]">20 min</span>
+                                        <span class="time text-slate-500 text-[8px]">{{
+                                            $carbon->create($funcEnded->created_at)->diffForHumans()
+                                            }}</span>
 
                                     </li>
                                 @endforeach

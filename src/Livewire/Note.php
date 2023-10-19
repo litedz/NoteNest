@@ -3,6 +3,7 @@
 namespace notenest\notenest\Livewire;
 
 use Livewire\Component;
+use notenest\notenest\Models\Draft;
 use notenest\notenest\Models\note as ModelsNote;
 use notenest\notenest\traits\status;
 
@@ -28,6 +29,9 @@ class Note extends Component
     public $description;
 
     public $functionName;
+    public $DraftDescription;
+
+    public $DraftName;
 
     public function mount()
     {
@@ -65,6 +69,29 @@ class Note extends Component
             'status' => status::$ENDED,
             'ended_at' => now(),
         ]);
+        $this->GetFuncs();
+    }
+    public function DeleteFunc($func_id)
+    {
+        $UpdateStatus = $this->FuncsInProgress = ModelsNote::where('id', $func_id)->delete();
+        $this->GetFuncs();
+    }
+    public function AddDraft()
+    {
+        $validated = $this->validate([
+            'DraftDescription' => 'max:100',
+            'DraftName' => 'required'
+        ]);
+
+        $UpdateStatus = $this->FuncsInProgress = Draft::create([
+            'name' =>$this->DraftName,
+            'description' =>$this->DraftDescription,
+        ]);
+        $this->GetFuncs();
+    }
+    public function DeleteDraft($func_id)
+    {
+        $UpdateStatus = $this->FuncsInProgress = Draft::where('id', $func_id)->delete();
         $this->GetFuncs();
     }
 

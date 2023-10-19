@@ -4,16 +4,17 @@ namespace notenest\notenest\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use notenest\notenest\Database\Factories\draftFactory;
 use notenest\notenest\Database\Factories\statusFactory;
 
-class status_func extends Model
+class Draft extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['status'];
+    protected $fillable = ['name','description'];
 
     protected static function newFactory()
     {
-        return statusFactory::new();
+        return draftFactory::new();
     }
 }

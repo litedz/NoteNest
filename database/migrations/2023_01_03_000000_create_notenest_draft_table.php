@@ -11,9 +11,8 @@ return new class extends Migration
 
         Schema::create('drafts', function (Blueprint $table) {
             $table->id();
-            $table->string('function_name');
+            $table->string('name');
             $table->string('description');
-            $table->enum('status', ['IN_PROGRESS', 'ENDED', 'AWAIT']);
             $table->timestamps();
         });
     }
