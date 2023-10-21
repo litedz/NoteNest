@@ -37,7 +37,8 @@
                                     @endforeach
 
                                 </ul>
-                                <div @click="AddFunctionsForm =true;Notes=false" class="first:pt-2 pt-2 pb-2 px-1 hover:cursor-pointer text-center border-t shadow border-gray-500" >
+                                <div @click="AddFunctionsForm =true;Notes=false"
+                                    class="first:pt-2 pt-2 pb-2 px-1 hover:cursor-pointer text-center border-t shadow border-gray-500">
                                     <span class="fa-plus text-slate-500 text-lg"></span>
                                 </div>
                             </div>
@@ -105,7 +106,8 @@
         </div>
         <div class="form fixed top-0 z-50 w-full" x-transition="" x-show="AddFunctionsForm">
             <div class="w-1/2 h-1/2 bg-white p-4 mx-auto mt-10 relative">
-                <span class="fa fa-remove absolute right-3 cursor-pointer text-slate-400" @click="AddFunctionsForm =false;Notes=true"></span>
+                <span class="fa fa-remove absolute right-3 cursor-pointer text-slate-400"
+                    @click="AddFunctionsForm =false;Notes=true"></span>
                 <h1 class="text-center border-b pb-1"> Add function </h1>
                 <div>
                     <label for="func" class="block mb-2 text-sm font-medium text-gray-900">function:</label>
@@ -119,6 +121,34 @@
                     <textarea id="description" rows="4"
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="description function..."></textarea>
+                </div>
+                <div>
+
+                    <label for="priority" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an
+                        option</label>
+                    <select id="select-priority" title="select prioritys "
+                        class="bg-gray-50 mb-5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Choose a priority</option>
+                        <option value="" class="uppercase">height</option>
+                        <option value="medi" class="capitalize">medium</option>
+                        <option value="" class="capitalize">low</option>
+                    </select>
+                    <div>
+                        <ul class="text-xs text-slate-500 grid gap-3 w-10">
+                            <li class="flex items-center gap-4 justify-between">
+                                <span class="uppercase">height</span>
+                                <span class="bg-red-500 relative h-3 rounded-full w-3"></span>
+                            </li>
+                            <li class="flex items-center gap-4 justify-between">
+                                <span class="uppercase">medium</span>
+                                <span class="bg-yellow-500 relative h-3 rounded-full w-3"></span>
+                            </li>
+                            <li class="flex items-center gap-4 justify-between">
+                                <span class="uppercase">low</span>
+                                <span class="bg-green-500 relative h-3 rounded-full w-3"></span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <button type="button" class="text-white rounded px-5 py-2 my-2 bg-blue-500 text-sm"
                     @click="$wire.Hello">Add </button>
@@ -146,7 +176,8 @@
                     <div class="grid gap-2 px-2">
                         <input type="text" name="draft" placeholder="draft . . ." wire:model="DraftName"
                             wire:keydown.enter="AddDraft" class="w-full p-2 rounded focus:border-blue-500">
-                        @error('DraftName') <span class="error bg-red-500 text-white">{{ $message }}</span> @enderror
+                        @error('DraftName') <span class="error text-white bg-red-300 p-2 rounded text-xs">{{ $message
+                            }}</span> @enderror
                         <div class="flex gap-2 justify-start">
                             <label for="check description" class="text-slate-500 text-xs">Add description</label>
                             <input type="checkbox" class="" id="opDesc" @click="openDesc = !openDesc" />
