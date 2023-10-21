@@ -1,8 +1,9 @@
 <div>
     <div x-data="{ open: false, AddFunctionsForm: false,Notes:false ,OpenDraft:false}"
         @progress.window="$wire.FunInProgress($event.detail)" @done.window="$wire.FunEnded($event.detail)">
-        <button @click="open = true;Notes=true" class="text-white p-2 rounded-lg text-xs fixed left-10 top-0 m-2 z-40 bg-green-500"
-            type="button">Click me </button>
+        <button @click="open = true;Notes=true"
+            class="text-white p-2 rounded-lg text-xs fixed left-10 top-0 m-2 z-40 bg-green-500" type="button">Click me
+        </button>
         <div class="fixed top-0  right-0 w-full h-full z-40 " x-show="open" x-transition>
             <span class="absolute right-0 top-0 fa fa-remove z-50 text-white font-bold text-lg cursor-pointer m-3"
                 @click="open = false"></span>
@@ -34,7 +35,11 @@
                                         <span class="text-xs">{{$func->function_name}}</span>
                                     </li>
                                     @endforeach
+
                                 </ul>
+                                <div @click="AddFunctionsForm =true;Notes=false" class="first:pt-2 pt-2 pb-2 px-1 hover:cursor-pointer text-center border-t shadow border-gray-500" >
+                                    <span class="fa-plus text-slate-500 text-lg"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -47,7 +52,7 @@
                                 </div>
                             </div>
                             <div class="notes">
-                                <ul class="gap-4 grid h-96 overflow-y-auto" id="progress-func">
+                                <ul class="gap-4 grid h-96 overflow-y-auto shadow" id="progress-func">
                                     @foreach($FuncsInProgress as $FunProgress)
                                     <li id="{{$FunProgress->id}}"
                                         class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
@@ -73,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="notes">
-                                <ul class="gap-4 grid h-96 overflow-y-auto" id="finished-func">
+                                <ul class="gap-4 grid h-96 overflow-y-auto shadow" id="finished-func">
                                     @foreach($FuncsEnded as $funcEnded)
                                     <li id="{{$funcEnded->id}}"
                                         class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
@@ -99,14 +104,11 @@
             </div>
         </div>
         <div class="form fixed top-0 z-50 w-full" x-transition="" x-show="AddFunctionsForm">
-
-
-            <div class="w-1/2 h-1/2 bg-white p-4 mx-auto mt-10">
+            <div class="w-1/2 h-1/2 bg-white p-4 mx-auto mt-10 relative">
+                <span class="fa fa-remove absolute right-3 cursor-pointer text-slate-400" @click="AddFunctionsForm =false;Notes=true"></span>
                 <h1 class="text-center border-b pb-1"> Add function </h1>
                 <div>
-
-                    <label for="func" class="block mb-2 text-sm font-medium text-gray-900">function
-                        :</label>
+                    <label for="func" class="block mb-2 text-sm font-medium text-gray-900">function:</label>
                     <input type="text" name="func" placeholder="function. . ."
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
@@ -135,8 +137,7 @@
                     <li
                         class="text-xs font-medium text-slate-500 flex items-center justify-between group cursor-pointer">
                         <span>{{$draft->name}}</span>
-                        <span
-                        wire:click="DeleteDraft({{$draft->id}})"
+                        <span wire:click="DeleteDraft({{$draft->id}})"
                             class="fa fa-minus text-red-700 bg-red-200 rounded-full p-1 cursor-pointer group-hover:opacity-100 opacity-0 transition-all"></span>
                     </li>
                     @endforeach
