@@ -23,18 +23,23 @@ class Note extends Component
 
     protected $rules = [
         'functionName' => 'required',
-        'description' => 'required',
+        'descriptionFunc' => 'required',
     ];
 
-    public $description;
+    public $descriptionFunc;
 
     public $functionName;
     public $DraftDescription;
 
     public $DraftName;
+    public $Drafts;
 
     public function mount()
     {
+        $this->GetFuncs();
+    }
+
+    public function booted()  {
         $this->GetFuncs();
     }
 
@@ -43,6 +48,7 @@ class Note extends Component
         $this->AvailableFuncs = ModelsNote::where('status', status::$AWAIT)->orderBy('created_at','desc')->get();
         $this->FuncsInProgress = ModelsNote::where('status', status::$IN_PROGRESS)->orderBy('created_at','desc')->get();
         $this->FuncsEnded = ModelsNote::where('status', status::$ENDED)->orderBy('created_at','desc')->get();
+        $this->Drafts =collect(Draft::get())->sortByDesc('created_at');
     }
 
     public function AddFunction()
@@ -51,7 +57,7 @@ class Note extends Component
 
         ModelsNote::create([
             'function_name' => $this->functionName,
-            'description' => $this->description,
+            'descriptionFunc' => $this->descriptionFunc,
         ]);
     }
 
@@ -85,7 +91,7 @@ class Note extends Component
 
         $UpdateStatus = $this->FuncsInProgress = Draft::create([
             'name' =>$this->DraftName,
-            'description' =>$this->DraftDescription,
+            'descriptionFunc' =>$this->DraftDescription,
         ]);
         $this->GetFuncs();
     }

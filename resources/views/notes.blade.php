@@ -1,5 +1,5 @@
 <div>
-    <div x-data="{ open: false, formFunctions: false }" @progress.window="$wire.FunInProgress($event.detail)"
+    <div x-data="{ open: false, formFunctions: false ,OpenDraft:false}" @progress.window="$wire.FunInProgress($event.detail)"
         @done.window="$wire.FunEnded($event.detail)">
         <button @click="open = true" class="text-white p-2 rounded-lg text-xs fixed left-10 top-0 m-2 z-40 bg-green-500"
             type="button">Click me </button>
@@ -8,8 +8,10 @@
                 @click="open = false"></span>
             <div class="overlay absolute top-0 left-0 z-10 bg-gray-700 opacity-30 h-full w-full"></div>
             <div class="list py-14" x-show="!formFunctions">
-                <div
-                    class="grid grid-cols-3 top-2/3 bg-white rounded-lg shadow relative z-40 mx-auto h-4/5 my-auto w-2/3 px-2 py-2 gap-2">
+                <div class="grid grid-cols-3 top-2/3 bg-white rounded-lg shadow relative z-40 mx-auto h-4/5 my-auto w-2/3 px-2 py-2 gap-2">
+                    <div>
+                        <span @click="OpenDraft =true" class="fa fa-solid fa-file-pen text-slate-600 text-lg  mx-3 cursor-pointer"></span>
+                    </div>
                     <h1 class="title col-span-full text-center">Notes List</h1>
                     <div class="current border-2 border-slate-200 rounded-lg">
                         <div class="step">
@@ -121,19 +123,30 @@
 
 
         </div>
-        <div class="draft-list">
-            <div class="fixed left-0 w-1/4 z-40 bg-white h-full m-4 rounded p-2">
+        <div class="draft-list" x-show="OpenDraft" x-transition>
+            <div class="fixed left-0 w-1/4 z-40  rounded p-2 h-full bg-slate-100">
+                <span class="fa fa-remove cursor-pointer absolute right-0 top-0 m-2 text-red-300" @click="OpenDraft = false"></span>
                 <h1 class="border-b pb-2 mb-2">Draft List</h1>
-                <ul class="grid">
-                    <template x-for="i in 5">
-                        <li x-text="i+'lorem '">
-
-                        </li>
-                    </template>
+                <ul class="flex flex-col gap-4 overflow-y-auto h-3/5 px-2">
+                    @foreach($Drafts as $draft)
+                    <li class=" text-xs font-medium text-slate-500">{{$draft->name}}</li>
+                    @endforeach
                 </ul>
-
-
-
+                <div class="absolute px-2 bottom-2 w-full left-0" x-data="{openDesc:false}">
+                    <div class="grid gap-2 px-2">
+                        <input type="text" name="draft" placeholder="draft . . ." wire:model="DraftName"
+                            class="w-full p-2 rounded focus:border-blue-500">
+                        @error('DraftName') <span class="error bg-red-500 text-white">{{ $message }}</span> @enderror
+                        <div class="flex gap-2 justify-start">
+                            <label for="check description" class="text-slate-500 text-xs">Add description</label>
+                            <input type="checkbox" class="" id="opDesc" @click="openDesc = !openDesc" />
+                        </div>
+                        <textarea type="text" name="draft" placeholder="Discption . . ." wire:model="DraftDescription"
+                            x-show="openDesc" x-transition class="w-full p-2 rounded focus:border-blue-500"></textarea>
+                        <button wire:click="AddDraft" type="button"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
