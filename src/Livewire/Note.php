@@ -39,16 +39,17 @@ class Note extends Component
         $this->GetFuncs();
     }
 
-    public function booted()  {
+    public function booted()
+    {
         $this->GetFuncs();
     }
 
     public function GetFuncs()
     {
-        $this->AvailableFuncs = ModelsNote::where('status', status::$AWAIT)->orderBy('created_at','desc')->get();
-        $this->FuncsInProgress = ModelsNote::where('status', status::$IN_PROGRESS)->orderBy('created_at','desc')->get();
-        $this->FuncsEnded = ModelsNote::where('status', status::$ENDED)->orderBy('created_at','desc')->get();
-        $this->Drafts =collect(Draft::get())->sortByDesc('created_at');
+        $this->AvailableFuncs = ModelsNote::where('status', status::$AWAIT)->orderBy('created_at', 'desc')->get();
+        $this->FuncsInProgress = ModelsNote::where('status', status::$IN_PROGRESS)->orderBy('created_at', 'desc')->get();
+        $this->FuncsEnded = ModelsNote::where('status', status::$ENDED)->orderBy('created_at', 'desc')->get();
+        $this->Drafts = collect(Draft::get())->sortByDesc('created_at');
     }
 
     public function AddFunction()
@@ -90,14 +91,17 @@ class Note extends Component
         ]);
 
         $UpdateStatus = $this->FuncsInProgress = Draft::create([
-            'name' =>$this->DraftName,
-            'descriptionFunc' =>$this->DraftDescription,
+            'name' => $this->DraftName,
+            'descriptionFunc' => $this->DraftDescription,
         ]);
+
+        $this->reset(['DraftName', 'DraftDescription']);
         $this->GetFuncs();
     }
     public function DeleteDraft($func_id)
     {
         $UpdateStatus = $this->FuncsInProgress = Draft::where('id', $func_id)->delete();
+        $this->reset(['DraftName', 'DraftDescription']);
         $this->GetFuncs();
     }
 
