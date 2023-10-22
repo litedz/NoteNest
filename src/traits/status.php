@@ -9,4 +9,10 @@ trait status
     public static $IN_PROGRESS = 'IN_PROGRESS';
 
     public static $ENDED = 'ENDED';
+
+    public static $priority = [
+        'HEIGH',
+        'MEDIUM',
+        'LOW',
+    ];
 }

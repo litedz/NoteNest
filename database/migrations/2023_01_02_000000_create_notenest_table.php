@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('function_name');
             $table->string('description');
             $table->enum('status', ['IN_PROGRESS', 'ENDED', 'AWAIT']);
+            $table->enum('priority', ['HIGH', 'MEDIUM', 'LOW'])->default('LOW');
             $table->timestamp('start_progress_at')->nullable();
             $table->timestamp('ended_at')->nullable();
             $table->timestamps();

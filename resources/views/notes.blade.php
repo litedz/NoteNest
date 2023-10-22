@@ -1,6 +1,8 @@
 <div>
     <div x-data="{ open: false, AddFunctionsForm: false,Notes:false ,OpenDraft:false}"
-        @progress.window="$wire.FunInProgress($event.detail)" @done.window="$wire.FunEnded($event.detail)">
+        @progress.window="$wire.FunInProgress($event.detail)"
+         @done.window="$wire.FunEnded($event.detail)"
+         x-on:created-func.window="Notes=true;AddFunctionsForm =false">
         <button @click="open = true;Notes=true"
             class="text-white p-2 rounded-lg text-xs fixed left-10 top-0 m-2 z-40 bg-green-500" type="button">Click me
         </button>
@@ -8,12 +10,13 @@
             <span class="absolute right-0 top-0 fa fa-remove z-50 text-white font-bold text-lg cursor-pointer m-3"
                 @click="open = false"></span>
             <div class="overlay absolute top-0 left-0 z-10 bg-gray-700 opacity-30 h-full w-full"></div>
-            <div class="list py-14" x-show="!OpenDraft && Notes" x-transition>
+            <div class="list py-14" x-show="Notes" x-transition>
                 <div
                     class="grid grid-cols-3 top-2/3 bg-white rounded-lg shadow relative z-40 mx-auto h-4/5 my-auto w-2/3 px-2 py-2 gap-2">
                     <div>
-                        <span @click="OpenDraft =true"
-                            class="fa fa-solid fa-file-pen text-slate-600 text-lg  mx-3 cursor-pointer"></span>
+                        <span @click="OpenDraft = true"
+                            class="fa fa-solid fa-file-pen text-slate-600 text-lg  mx-3 cursor-pointer">
+                        </span>
                     </div>
                     <h1 class="title col-span-full text-center">Notes List</h1>
                     <div class="current border-2 border-slate-200 rounded-lg">
@@ -104,60 +107,66 @@
                 </div>
             </div>
         </div>
-        <div class="form fixed top-0 z-50 w-full" x-transition="" x-show="AddFunctionsForm">
+        <div class="form fixed top-0 z-50 w-full" x-transition x-show="AddFunctionsForm">
             <div class="w-1/2 h-1/2 bg-white p-4 mx-auto mt-10 relative">
                 <span class="fa fa-remove absolute right-3 cursor-pointer text-slate-400"
                     @click="AddFunctionsForm =false;Notes=true"></span>
-                <h1 class="text-center border-b pb-1"> Add function </h1>
-                <div>
+                <h1 class="text-center border-b pb-2 mb-3"> Add function </h1>
+                <div class="grid gap-4">
                     <label for="func" class="block mb-2 text-sm font-medium text-gray-900">function:</label>
-                    <input type="text" name="func" placeholder="function. . ."
+                    <input type="text" name="func" placeholder="function. . ." wire:model="functionName"
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
+                    @error('functionName') <span class="error text-white bg-red-300 p-2 rounded text-xs">{{
+                        $message}}</span> @enderror
                 </div>
-                <div>
+                <div class="grid gap-4">
                     <label for="description" class="block mb-2 text-sm font-medium text-gray-900">description
                         :</label>
-                    <textarea id="description" rows="4"
+                    <textarea id="description" rows="4" wire:model="descriptionFunc"
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="description function..."></textarea>
+                    @error('descriptionFunc') <span class="error text-white bg-red-300 p-2 rounded text-xs">{{
+                        $message}}</span> @enderror
                 </div>
-                <div>
+                <div class="grid gap-4">
 
                     <label for="priority" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an
                         option</label>
-                    <select id="select-priority" title="select prioritys "
+                    <select id="select-priority" title="select prioritys" wire:model="funcPriority"
                         class="bg-gray-50 mb-5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Choose a priority</option>
-                        <option value="" class="uppercase">height</option>
-                        <option value="medi" class="capitalize">medium</option>
-                        <option value="" class="capitalize">low</option>
+                        <option value="HIGHee" class="uppercase">HIGH</option>
+                        <option value="MEDIUM" class="capitalize">medium</option>
+                        <option value="LOW" class="capitalize">low</option>
                     </select>
-                    <div>
-                        <ul class="text-xs text-slate-500 grid gap-3 w-10">
-                            <li class="flex items-center gap-4 justify-between">
-                                <span class="uppercase">height</span>
-                                <span class="bg-red-500 relative h-3 rounded-full w-3"></span>
-                            </li>
-                            <li class="flex items-center gap-4 justify-between">
-                                <span class="uppercase">medium</span>
-                                <span class="bg-yellow-500 relative h-3 rounded-full w-3"></span>
-                            </li>
-                            <li class="flex items-center gap-4 justify-between">
-                                <span class="uppercase">low</span>
-                                <span class="bg-green-500 relative h-3 rounded-full w-3"></span>
-                            </li>
-                        </ul>
-                    </div>
+                    @error('funcPriority') <span class="error text-white bg-red-300 p-2 rounded text-xs">{{
+                        $message}}</span> @enderror
                 </div>
-                <button type="button" class="text-white rounded px-5 py-2 my-2 bg-blue-500 text-sm"
-                    @click="$wire.Hello">Add </button>
+                <div>
+                    <ul class="text-xs text-slate-500 grid gap-3 w-10">
+                        <li class="flex items-center gap-4 justify-between">
+                            <span class="uppercase">height</span>
+                            <span class="bg-red-500 relative h-3 rounded-full w-3"></span>
+                        </li>
+                        <li class="flex items-center gap-4 justify-between">
+                            <span class="uppercase">medium</span>
+                            <span class="bg-yellow-500 relative h-3 rounded-full w-3"></span>
+                        </li>
+                        <li class="flex items-center gap-4 justify-between">
+                            <span class="uppercase">low</span>
+                            <span class="bg-green-500 relative h-3 rounded-full w-3"></span>
+                        </li>
+                    </ul>
+                </div>
+                <button wire:key='{{rand()}}' type="button"
+                    class="text-white rounded px-5 py-2 my-2 bg-blue-500 text-sm" wire:click="AddFunction">Add </button>
             </div>
-
-
-
         </div>
-        <div class="draft-list" x-show="OpenDraft" x-transition>
+
+
+
+
+        <div class="draft-list" x-cloak x-transition x-show="OpenDraft == true">
             <div class="fixed left-0 w-1/4 z-40  rounded p-2 h-full bg-slate-100">
                 <span class="fa fa-remove cursor-pointer absolute right-0 top-0 m-2 text-red-300"
                     @click="OpenDraft = false"></span>
@@ -176,8 +185,8 @@
                     <div class="grid gap-2 px-2">
                         <input type="text" name="draft" placeholder="draft . . ." wire:model="DraftName"
                             wire:keydown.enter="AddDraft" class="w-full p-2 rounded focus:border-blue-500">
-                        @error('DraftName') <span class="error text-white bg-red-300 p-2 rounded text-xs">{{ $message
-                            }}</span> @enderror
+                        @error('DraftName') <span class="error text-white bg-red-300 p-2 rounded text-xs">{{
+                            $message}}</span> @enderror
                         <div class="flex gap-2 justify-start">
                             <label for="check description" class="text-slate-500 text-xs">Add description</label>
                             <input type="checkbox" class="" id="opDesc" @click="openDesc = !openDesc" />
@@ -185,7 +194,8 @@
                         <textarea type="text" name="draft" placeholder="Discption . . ." wire:model="DraftDescription"
                             x-show="openDesc" x-transition class="w-full p-2 rounded focus:border-blue-500"></textarea>
                         <button wire:click="AddDraft" type="button"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add</button>
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add
+                            Draft</button>
                     </div>
                 </div>
             </div>

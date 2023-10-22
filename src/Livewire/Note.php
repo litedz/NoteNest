@@ -5,6 +5,7 @@ namespace notenest\notenest\Livewire;
 use Livewire\Component;
 use notenest\notenest\Models\Draft;
 use notenest\notenest\Models\note as ModelsNote;
+use notenest\notenest\Rules\priorityRule;
 use notenest\notenest\traits\status;
 
 class Note extends Component
@@ -24,14 +25,19 @@ class Note extends Component
     protected $rules = [
         'functionName' => 'required',
         'descriptionFunc' => 'required',
+
     ];
 
     public $descriptionFunc;
 
     public $functionName;
+
     public $DraftDescription;
 
+    public $funcPriority;
+
     public $DraftName;
+
     public $Drafts;
 
     public function mount()
@@ -56,10 +62,17 @@ class Note extends Component
     {
         $this->validate();
 
-        ModelsNote::create([
-            'function_name' => $this->functionName,
-            'descriptionFunc' => $this->descriptionFunc,
+        $this->validate([
+            'funcPriority' => new priorityRule,
         ]);
+        $createFun = ModelsNote::create([
+            'function_name' => $this->functionName,
+            'description' => $this->descriptionFunc,
+            'priority' => $this->funcPriority,
+            'status' => status::$AWAIT,
+        ]);
+        $createFun ? $this->dispatch('created-func') && $this->GetFuncs() : '';
+
     }
 
     public function FunInProgress($func_id)
@@ -78,16 +91,18 @@ class Note extends Component
         ]);
         $this->GetFuncs();
     }
+
     public function DeleteFunc($func_id)
     {
         $UpdateStatus = $this->FuncsInProgress = ModelsNote::where('id', $func_id)->delete();
         $this->GetFuncs();
     }
+
     public function AddDraft()
     {
         $validated = $this->validate([
             'DraftDescription' => 'max:100',
-            'DraftName' => 'required'
+            'DraftName' => 'required',
         ]);
 
         $UpdateStatus = $this->FuncsInProgress = Draft::create([
@@ -98,6 +113,7 @@ class Note extends Component
         $this->reset(['DraftName', 'DraftDescription']);
         $this->GetFuncs();
     }
+
     public function DeleteDraft($func_id)
     {
         $UpdateStatus = $this->FuncsInProgress = Draft::where('id', $func_id)->delete();

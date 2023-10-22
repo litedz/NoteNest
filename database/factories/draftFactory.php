@@ -13,7 +13,7 @@ class draftFactory extends Factory
     {
         return [
             'name' => fake()->sentence(),
-            'description' => fake()->sentences(3,true),
+            'description' => fake()->sentences(3, true),
         ];
 
     }
