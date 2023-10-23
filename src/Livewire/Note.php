@@ -57,9 +57,9 @@ class Note extends Component
 
     public function AddFunction(): void
     {
-        $this->validate();
+        $validated=$this->validate();
 
-        $this->validate([
+        $validPriority=$this->validate([
             'funcPriority' => new priorityRule,
         ]);
         $createFun = ModelsNote::create([

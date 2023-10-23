@@ -12,6 +12,7 @@ class Draft extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'description'];
+    
 
     protected static function newFactory(): Factory
     {
