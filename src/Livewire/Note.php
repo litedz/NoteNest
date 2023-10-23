@@ -44,6 +44,7 @@ class Note extends Component
             'descriptionFunc' => 'required',
         ];
     }
+
     public function mount(): void
     {
         $this->GetFuncs();
@@ -88,7 +89,7 @@ class Note extends Component
 
     public function FunEnded(int $func_id): void
     {
-        $UpdateStatus =  ModelsNote::where('id', $func_id)->update([
+        $UpdateStatus = ModelsNote::where('id', $func_id)->update([
             'status' => status::$ENDED,
             'ended_at' => now(),
         ]);
@@ -97,7 +98,7 @@ class Note extends Component
 
     public function DeleteFunc(int $func_id): void
     {
-        $DeleteFun  = ModelsNote::where('id', $func_id)->delete();
+        $DeleteFun = ModelsNote::where('id', $func_id)->delete();
         $DeleteFun ? $this->dispatch('SweatAlert', title: 'function Deleted', icon: 'warning') && $this->GetFuncs() : '';
     }
 
@@ -108,18 +109,18 @@ class Note extends Component
             'DraftName' => 'required',
         ]);
 
-        $createDraft  = Draft::create([
+        $createDraft = Draft::create([
             'name' => $this->DraftName,
             'descriptionFunc' => $this->DraftDescription,
         ]);
 
-       $createDraft ? $this->reset(['DraftName', 'DraftDescription']) &&  $this->GetFuncs() :'';
-     
+        $createDraft ? $this->reset(['DraftName', 'DraftDescription']) && $this->GetFuncs() : '';
+
     }
 
     public function DeleteDraft(int $func_id): void
     {
-        $DeleteDraft  = Draft::where('id', $func_id)->delete();
+        $DeleteDraft = Draft::where('id', $func_id)->delete();
         $this->reset(['DraftName', 'DraftDescription']);
         $this->GetFuncs();
     }
