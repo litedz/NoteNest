@@ -20,10 +20,10 @@ class Note extends Component
 
     public Collection $FuncsEnded;
 
-    protected $rules = [
-        'functionName' => 'required',
-        'descriptionFunc' => 'required',
-    ];
+    // protected $rules = [
+    //     'functionName' => 'required',
+    //     'descriptionFunc' => 'required',
+    // ];
 
     public string $descriptionFunc;
 
@@ -37,6 +37,13 @@ class Note extends Component
 
     public Collection $Drafts;
 
+    public function rules(): array
+    {
+        return [
+            'functionName' => 'required',
+            'descriptionFunc' => 'required',
+        ];
+    }
     public function mount(): void
     {
         $this->GetFuncs();
@@ -57,9 +64,9 @@ class Note extends Component
 
     public function AddFunction(): void
     {
-        $validated=$this->validate();
+        $validated = $this->validate();
 
-        $validPriority=$this->validate([
+        $validPriority = $this->validate([
             'funcPriority' => new priorityRule,
         ]);
         $createFun = ModelsNote::create([
@@ -73,7 +80,7 @@ class Note extends Component
 
     public function FunInProgress(int $func_id): void
     {
-        $UpdateStatus = $this->FuncsInProgress = ModelsNote::where('id', $func_id)->update([
+        $UpdateStatus = ModelsNote::where('id', $func_id)->update([
             'status' => status::$IN_PROGRESS,
         ]);
         $UpdateStatus ? $this->dispatch('SweatAlert', title: 'Status Updated', icon: 'success') && $this->GetFuncs() : '';
@@ -81,7 +88,7 @@ class Note extends Component
 
     public function FunEnded(int $func_id): void
     {
-        $UpdateStatus = $this->FuncsInProgress = ModelsNote::where('id', $func_id)->update([
+        $UpdateStatus =  ModelsNote::where('id', $func_id)->update([
             'status' => status::$ENDED,
             'ended_at' => now(),
         ]);
@@ -90,8 +97,8 @@ class Note extends Component
 
     public function DeleteFunc(int $func_id): void
     {
-        $UpdateStatus = $this->FuncsInProgress = ModelsNote::where('id', $func_id)->delete();
-        $UpdateStatus ? $this->dispatch('SweatAlert', title: 'function Deleted', icon: 'warning') && $this->GetFuncs() : '';
+        $DeleteFun  = ModelsNote::where('id', $func_id)->delete();
+        $DeleteFun ? $this->dispatch('SweatAlert', title: 'function Deleted', icon: 'warning') && $this->GetFuncs() : '';
     }
 
     public function AddDraft(): void
@@ -101,18 +108,18 @@ class Note extends Component
             'DraftName' => 'required',
         ]);
 
-        $UpdateStatus = $this->FuncsInProgress = Draft::create([
+        $createDraft  = Draft::create([
             'name' => $this->DraftName,
             'descriptionFunc' => $this->DraftDescription,
         ]);
 
-        $this->reset(['DraftName', 'DraftDescription']);
-        $this->GetFuncs();
+       $createDraft ? $this->reset(['DraftName', 'DraftDescription']) &&  $this->GetFuncs() :'';
+     
     }
 
     public function DeleteDraft(int $func_id): void
     {
-        $UpdateStatus = $this->FuncsInProgress = Draft::where('id', $func_id)->delete();
+        $DeleteDraft  = Draft::where('id', $func_id)->delete();
         $this->reset(['DraftName', 'DraftDescription']);
         $this->GetFuncs();
     }
