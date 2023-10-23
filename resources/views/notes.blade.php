@@ -202,3 +202,13 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    window.addEventListener('SweatAlert', function(e) {
+        console.log(e);
+        let data = e.detail;
+        Swal.fire(data.title, 'Click to hide window', data.icon)
+    });
+    
+</script>

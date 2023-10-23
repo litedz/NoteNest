@@ -72,7 +72,7 @@ class Note extends Component
             'status' => status::$AWAIT,
         ]);
         $createFun ? $this->dispatch('created-func') && $this->GetFuncs() : '';
-
+        $this->dispatch('SweatAlert',title: 'function created',icon:'success');
     }
 
     public function FunInProgress($func_id)
