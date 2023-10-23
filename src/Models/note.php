@@ -9,5 +9,5 @@ class note extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['function_name', 'description', 'priority','status'];
+    protected $fillable = ['function_name', 'description', 'priority', 'status'];
 }

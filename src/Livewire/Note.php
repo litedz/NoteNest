@@ -2,6 +2,8 @@
 
 namespace notenest\notenest\Livewire;
 
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 use notenest\notenest\Models\Draft;
 use notenest\notenest\Models\note as ModelsNote;
@@ -12,45 +14,40 @@ class Note extends Component
 {
     use status;
 
-    protected static $layout = ['layout' => 'notenest::layouts.note-app', 'section' => 'content'];
+    public Collection $AvailableFuncs;
 
-    protected static string $view = 'notenest::notes';
+    public Collection $FuncsInProgress;
 
-    public $AvailableFuncs;
-
-    public $FuncsInProgress;
-
-    public $FuncsEnded;
+    public Collection $FuncsEnded;
 
     protected $rules = [
         'functionName' => 'required',
         'descriptionFunc' => 'required',
-
     ];
 
-    public $descriptionFunc;
+    public string $descriptionFunc;
 
-    public $functionName;
+    public string $functionName;
 
-    public $DraftDescription;
+    public string $DraftDescription;
 
-    public $funcPriority;
+    public string $funcPriority;
 
-    public $DraftName;
+    public string $DraftName;
 
-    public $Drafts;
+    public Collection $Drafts;
 
-    public function mount()
+    public function mount(): void
     {
         $this->GetFuncs();
     }
 
-    public function booted()
+    public function booted(): void
     {
         $this->GetFuncs();
     }
 
-    public function GetFuncs()
+    public function GetFuncs(): void
     {
         $this->AvailableFuncs = ModelsNote::where('status', status::$AWAIT)->orderBy('created_at', 'desc')->get();
         $this->FuncsInProgress = ModelsNote::where('status', status::$IN_PROGRESS)->orderBy('created_at', 'desc')->get();
@@ -58,7 +55,7 @@ class Note extends Component
         $this->Drafts = collect(Draft::get())->sortByDesc('created_at');
     }
 
-    public function AddFunction()
+    public function AddFunction(): void
     {
         $this->validate();
 
@@ -74,15 +71,15 @@ class Note extends Component
         $createFun ? $this->dispatch('created-func') && $this->dispatch('SweatAlert', title: 'function created', icon: 'success') && $this->GetFuncs() : '';
     }
 
-    public function FunInProgress($func_id)
+    public function FunInProgress(int $func_id): void
     {
         $UpdateStatus = $this->FuncsInProgress = ModelsNote::where('id', $func_id)->update([
             'status' => status::$IN_PROGRESS,
         ]);
-        $this->GetFuncs();
+        $UpdateStatus ? $this->dispatch('SweatAlert', title: 'Status Updated', icon: 'success') && $this->GetFuncs() : '';
     }
 
-    public function FunEnded($func_id)
+    public function FunEnded(int $func_id): void
     {
         $UpdateStatus = $this->FuncsInProgress = ModelsNote::where('id', $func_id)->update([
             'status' => status::$ENDED,
@@ -91,14 +88,13 @@ class Note extends Component
         $this->GetFuncs();
     }
 
-    public function DeleteFunc($func_id)
+    public function DeleteFunc(int $func_id): void
     {
         $UpdateStatus = $this->FuncsInProgress = ModelsNote::where('id', $func_id)->delete();
-        $UpdateStatus ? $this->dispatch('SweatAlert', title: 'function Deleted', icon: 'warning') && this->GetFuncs() : '';
-        $
+        $UpdateStatus ? $this->dispatch('SweatAlert', title: 'function Deleted', icon: 'warning') && $this->GetFuncs() : '';
     }
 
-    public function AddDraft()
+    public function AddDraft(): void
     {
         $validated = $this->validate([
             'DraftDescription' => 'max:100',
@@ -114,14 +110,14 @@ class Note extends Component
         $this->GetFuncs();
     }
 
-    public function DeleteDraft($func_id)
+    public function DeleteDraft(int $func_id): void
     {
         $UpdateStatus = $this->FuncsInProgress = Draft::where('id', $func_id)->delete();
         $this->reset(['DraftName', 'DraftDescription']);
         $this->GetFuncs();
     }
 
-    public function render()
+    public function render(): View
     {
         return view('notenest::notes');
     }

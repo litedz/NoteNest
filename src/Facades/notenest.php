@@ -11,6 +11,6 @@ class notenest extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \notenest\notenest\notenest::class;
+        return __DIR__.'/'.notenest::class;
     }
 }

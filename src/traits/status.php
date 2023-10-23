@@ -4,15 +4,9 @@ namespace notenest\notenest\traits;
 
 trait status
 {
-    public static $AWAIT = 'AWAIT';
+    public static string $AWAIT = 'AWAIT';
 
-    public static $IN_PROGRESS = 'IN_PROGRESS';
+    public static string $IN_PROGRESS = 'IN_PROGRESS';
 
-    public static $ENDED = 'ENDED';
-
-    public static $priority = [
-        'HEIGH',
-        'MEDIUM',
-        'LOW',
-    ];
+    public static string $ENDED = 'ENDED';
 }
