@@ -71,8 +71,7 @@ class Note extends Component
             'priority' => $this->funcPriority,
             'status' => status::$AWAIT,
         ]);
-        $createFun ? $this->dispatch('created-func') && $this->GetFuncs() : '';
-        $this->dispatch('SweatAlert',title: 'function created',icon:'success');
+        $createFun ? $this->dispatch('created-func') && $this->dispatch('SweatAlert', title: 'function created', icon: 'success') && $this->GetFuncs() : '';
     }
 
     public function FunInProgress($func_id)
@@ -95,7 +94,8 @@ class Note extends Component
     public function DeleteFunc($func_id)
     {
         $UpdateStatus = $this->FuncsInProgress = ModelsNote::where('id', $func_id)->delete();
-        $this->GetFuncs();
+        $UpdateStatus ? $this->dispatch('SweatAlert', title: 'function Deleted', icon: 'warning') && this->GetFuncs() : '';
+        $
     }
 
     public function AddDraft()

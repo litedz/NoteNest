@@ -33,9 +33,14 @@
                                 <ul class="gap-4 grid h-96 overflow-y-auto" id="current-func">
                                     @foreach($AvailableFuncs as $func)
                                     <li id="{{$func->id}}"
-                                        class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pt-2 pb-2 px-1 hover:cursor-pointer">
-                                        <span class="fa fa-circle text-[8px] text-red-400"></span>
-                                        <span class="text-xs">{{$func->function_name}}</span>
+                                        class="flex group flex-row gap-2 items-baseline first:pt-2 border-b-2 pt-2 pb-2 px-1 hover:cursor-pointer">
+                                        <div class="basis-1/2">
+                                            <span class="fa fa-circle text-[8px] text-red-400"></span>
+                                            <span class="text-xs">{{$func->function_name}}</span>
+                                        </div>
+                                        <div class="basis-1/2  text-right px-2" wire:key="{{rand()}}" wire:click="DeleteFunc({{$func->id}})">
+                                            <button type="button" class="bg-red-500 text-white text-xs opacity-0 p-2  transition group-hover:opacity-100">Delete</button>
+                                        </div>
                                     </li>
                                     @endforeach
 
