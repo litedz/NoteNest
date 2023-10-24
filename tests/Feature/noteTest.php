@@ -1,10 +1,11 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use notenest\notenest\Models\Draft;
 use notenest\notenest\Models\note;
 use notenest\notenest\traits\status;
-use Carbon\Carbon;
+
 use function Pest\Livewire\livewire;
 
 // uses(RefreshDatabase::class);
@@ -145,7 +146,7 @@ test('can Delete draft ', function () {
 test('can See All draft ', function () {
     Draft::factory()->count(3)->create();
     $draft = Draft::get()->pluck('name')->random();
-   
+
     Livewire('Note')
         ->assertSeeText($draft)
         ->assertHasNoErrors();
