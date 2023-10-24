@@ -1,11 +1,11 @@
 <div>
-    <div x-data="{ open: false, AddFunctionsForm: false,Notes:false ,OpenDraft:false}"
-        @progress.window="$wire.FunInProgress($event.detail)"
-         @done.window="$wire.FunEnded($event.detail)"
-         x-on:created-func.window="Notes=true;AddFunctionsForm =false">
-        <button @click="open = true;Notes=true"
-            class="text-white p-2 rounded-lg text-xs fixed left-10 top-0 m-2 z-40 bg-green-500" type="button">Click me
-        </button>
+    <div x-data="{ open: false, AddFunctionsForm: false,Notes:false ,OpenDraft:false}" x-cloak
+        @progress.window="$wire.FunInProgress($event.detail)" @done.window="$wire.FunEnded($event.detail)"
+        x-on:created-func.window="Notes=true;AddFunctionsForm =false">
+        <div class="text-white p-2 text-xs fixed left-10 top-0 m-2 z-40 w-16 ">
+            <img src="{{asset('notenest/images/logo.png')}}" alt="Logo Package" srcset=""
+                class="rounded-full cursor-pointer" @click="open=true;Notes =true">
+        </div>
         <div class="fixed top-0  right-0 w-full h-full z-40 " x-show="open" x-transition>
             <span class="absolute right-0 top-0 fa fa-remove z-50 text-white font-bold text-lg cursor-pointer m-3"
                 @click="open = false"></span>
@@ -14,7 +14,7 @@
                 <div
                     class="grid grid-cols-3 top-2/3 bg-white rounded-lg shadow relative z-40 mx-auto h-4/5 my-auto w-2/3 px-2 py-2 gap-2">
                     <div>
-                        <span @click="OpenDraft = true"
+                        <span @click="OpenDraft = true;Notes =false"
                             class="fa fa-solid fa-file-pen text-slate-600 text-lg  mx-3 cursor-pointer">
                         </span>
                     </div>
@@ -38,8 +38,9 @@
                                             <span class="fa fa-circle text-[8px] text-red-400"></span>
                                             <span class="text-xs">{{$func->function_name}}</span>
                                         </div>
-                                        <div class="basis-1/2  text-right px-2" wire:key="{{rand()}}" wire:click="DeleteFunc({{$func->id}})">
-                                            <button type="button" class="bg-red-500 text-white text-xs opacity-0 p-2  transition group-hover:opacity-100">Delete</button>
+                                        <div class="basis-1/2  text-right px-2" wire:key="{{rand()}}">
+                                            <button wire:click="DeleteFunc({{$func->id}})" type="button"
+                                                class="bg-red-500 text-white text-xs opacity-0 p-2  transition group-hover:opacity-100">Delete</button>
                                         </div>
                                     </li>
                                     @endforeach
@@ -69,8 +70,9 @@
                                             <span class="fa fa-solid fa-spinner text-[8px] text-yellow-400"></span>
                                             <span class="text-xs">{{$FunProgress->function_name}}.</span>
                                         </div>
-                                        <span
-                                            class="time text-slate-500 text-[8px]">{{$FunProgress->start_progress_at}}</span>
+                                        <span class="time text-slate-500 text-[8px]">{{
+                                            $carbon->create($FunProgress->start_progress_at)->format('Y M d')
+                                            }}</span>
 
                                     </li>
                                     @endforeach
@@ -172,9 +174,9 @@
 
 
         <div class="draft-list" x-cloak x-transition x-show="OpenDraft == true">
-            <div class="fixed left-0 w-1/4 z-40  rounded p-2 h-full bg-slate-100">
+            <div class="fixed left-4 w-1/4 z-40  rounded p-2 h-full bg-slate-100">
                 <span class="fa fa-remove cursor-pointer absolute right-0 top-0 m-2 text-red-300"
-                    @click="OpenDraft = false"></span>
+                    @click="OpenDraft = false;Notes=true"></span>
                 <h1 class="border-b pb-2 mb-2">Draft List</h1>
                 <ul class="flex flex-col gap-4 overflow-y-auto h-3/5 px-2">
                     @foreach($Drafts as $draft)
@@ -210,10 +212,10 @@
 
 
 <script>
-    window.addEventListener('SweatAlert', function(e) {
+    window.addEventListener('SweatAlert', function (e) {
         console.log(e);
         let data = e.detail;
         Swal.fire(data.title, 'Click to hide window', data.icon)
     });
-    
+
 </script>

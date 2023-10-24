@@ -3,11 +3,11 @@
 namespace notenest\notenest\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use notenest\notenest\Models\Draft;
+use notenest\notenest\Models\draft;
 
 class draftFactory extends Factory
 {
-    protected $model = Draft::class;
+    protected $model = draft::class;
 
     public function definition()
     {

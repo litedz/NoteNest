@@ -5,7 +5,7 @@ namespace notenest\notenest\Livewire;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Component;
-use notenest\notenest\Models\Draft;
+use notenest\notenest\Models\draft;
 use notenest\notenest\Models\note as ModelsNote;
 use notenest\notenest\Rules\priorityRule;
 use notenest\notenest\traits\status;
@@ -20,16 +20,11 @@ class Note extends Component
 
     public Collection $FuncsEnded;
 
-    // protected $rules = [
-    //     'functionName' => 'required',
-    //     'descriptionFunc' => 'required',
-    // ];
-
     public string $descriptionFunc;
 
     public string $functionName;
 
-    public string $DraftDescription;
+    public string $DraftDescription ='';
 
     public string $funcPriority;
 
@@ -60,7 +55,7 @@ class Note extends Component
         $this->AvailableFuncs = ModelsNote::where('status', status::$AWAIT)->orderBy('created_at', 'desc')->get();
         $this->FuncsInProgress = ModelsNote::where('status', status::$IN_PROGRESS)->orderBy('created_at', 'desc')->get();
         $this->FuncsEnded = ModelsNote::where('status', status::$ENDED)->orderBy('created_at', 'desc')->get();
-        $this->Drafts = collect(Draft::get())->sortByDesc('created_at');
+        $this->Drafts = collect(draft::get())->sortByDesc('created_at');
     }
 
     public function AddFunction(): void
@@ -83,6 +78,7 @@ class Note extends Component
     {
         $UpdateStatus = ModelsNote::where('id', $func_id)->update([
             'status' => status::$IN_PROGRESS,
+            'start_progress_at' => now()
         ]);
         $UpdateStatus ? $this->dispatch('SweatAlert', title: 'Status Updated', icon: 'success') && $this->GetFuncs() : '';
     }
@@ -109,7 +105,7 @@ class Note extends Component
             'DraftName' => 'required',
         ]);
 
-        $createDraft = Draft::create([
+        $createDraft = draft::create([
             'name' => $this->DraftName,
             'descriptionFunc' => $this->DraftDescription,
         ]);
@@ -120,7 +116,7 @@ class Note extends Component
 
     public function DeleteDraft(int $func_id): void
     {
-        $DeleteDraft = Draft::where('id', $func_id)->delete();
+        $DeleteDraft = draft::where('id', $func_id)->delete();
         $this->reset(['DraftName', 'DraftDescription']);
         $this->GetFuncs();
     }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use notenest\notenest\Database\Factories\draftFactory;
 
-class Draft extends Model
+class draft extends Model
 {
     use HasFactory;
 
