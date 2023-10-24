@@ -2,7 +2,7 @@
     <div x-data="{ open: false, AddFunctionsForm: false,Notes:false ,OpenDraft:false}" x-cloak
         @progress.window="$wire.FunInProgress($event.detail)" @done.window="$wire.FunEnded($event.detail)"
         x-on:created-func.window="Notes=true;AddFunctionsForm =false">
-        <div class="text-white p-2 text-xs fixed left-10 top-0 m-2 z-40 w-16 ">
+        <div class="text-white p-2 text-xs fixed left-5 bottom-0 m-2 z-40 w-16 ">
             <img src="{{asset('notenest/images/logo.png')}}" alt="Logo Package" srcset=""
                 class="rounded-full cursor-pointer" @click="open=true;Notes =true">
         </div>
