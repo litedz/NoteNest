@@ -2,13 +2,13 @@
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use notenest\notenest\Models\Draft;
+use notenest\notenest\Models\draft;
 use notenest\notenest\Models\note;
 use notenest\notenest\traits\status;
 
 use function Pest\Livewire\livewire;
 
-// uses(RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 test('can render view', function () {
     Livewire('Note')->assertStatus(200);
