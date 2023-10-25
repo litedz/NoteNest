@@ -22,20 +22,23 @@ To run MyCal on your local machine, follow these steps:
    ```bash
    vendor:publish --tag=notenest-js
 
-4. Publish js files :
-
-   ```bash
-   vendor:publish --tag=notenest-js
-
-5. Install sortable js  :
+4. Install sortable js  :
 
    ```bash
    npm install sortablejs --save
+5. In Your vite.config.js add :
 
-Now got to vite.config.js and Add : 
+   ```bash
+   resources/js/sortable.js
+6. In root blade add :
 
+   ```bash
+    @vite(['resources/js/sortable.js'])
+   
+6. In root blade add :
 
-
+   ```bash
+    @livewire('Note')
 
 ## requirement
 

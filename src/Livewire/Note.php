@@ -24,7 +24,7 @@ class Note extends Component
 
     public string $functionName;
 
-    public string $DraftDescription ='';
+    public string $DraftDescription = '';
 
     public string $funcPriority;
 
@@ -78,7 +78,7 @@ class Note extends Component
     {
         $UpdateStatus = ModelsNote::where('id', $func_id)->update([
             'status' => status::$IN_PROGRESS,
-            'start_progress_at' => now()
+            'start_progress_at' => now(),
         ]);
         $UpdateStatus ? $this->dispatch('SweatAlert', title: 'Status Updated', icon: 'success') && $this->GetFuncs() : '';
     }
