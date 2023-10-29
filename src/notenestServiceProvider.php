@@ -4,6 +4,8 @@ namespace notenest\notenest;
 
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
+use notenest\notenest\Commands\InstallNotenest;
+use notenest\notenest\Commands\AboutNestCommand;
 use notenest\notenest\Livewire\Note;
 
 class notenestServiceProvider extends ServiceProvider
@@ -15,22 +17,29 @@ class notenestServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'notenest');
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                InstallNotenest::class,
+                AboutNestCommand::class
+            ]);
+        }
+
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'notenest');
 
         $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/livewire'),
+            __DIR__ . '/../resources/views' => resource_path('views/livewire'),
         ], 'notenest-views');
         $this->publishes([
-            __DIR__.'/../resources/js' => resource_path('js'),
+            __DIR__ . '/../resources/js' => resource_path('js'),
         ], 'notenest-js');
 
         $this->publishes([
-            __DIR__.'/../public' => public_path('notenest'),
+            __DIR__ . '/../public' => public_path('notenest'),
         ], 'notenest-public');
 
         $this->publishes([
-            __DIR__.'/../database/migrations/' => database_path('migrations'),
+            __DIR__ . '/../database/migrations/' => database_path('migrations'),
         ], 'notenest-migrations');
 
         Livewire::component('Note', Note::class);

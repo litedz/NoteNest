@@ -2,9 +2,12 @@
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
+use notenest\notenest\Commands\InstallNotenest;
 use notenest\notenest\Models\draft;
 use notenest\notenest\Models\note;
 use notenest\notenest\traits\status;
+use function Laravel\Prompts\text;
 
 use function Pest\Livewire\livewire;
 
@@ -41,6 +44,7 @@ test('can add Function', function () {
     Livewire('Note')
         ->set('functionName', 'Add admin panel')
         ->set('descriptionFunc', 'this is descption')
+        ->set('funcPriority', 'HIGH')
         ->call('AddFunction', 1)
         ->assertHasNoErrors();
 });
@@ -150,4 +154,10 @@ test('can See All draft ', function () {
     Livewire('Note')
         ->assertSeeText($draft)
         ->assertHasNoErrors();
+});
+test('prommz', function () {
+    $this->artisan('NotenestInstall')
+    ->expectsQuestion('Project Name ?','');
+
+    
 });

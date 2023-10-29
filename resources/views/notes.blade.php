@@ -1,7 +1,6 @@
 <div>
     <div x-data="{ open: false, AddFunctionsForm: false,Notes:false ,OpenDraft:false}" x-cloak
-        @progress.window="$wire.FunInProgress($event.detail)" 
-        @done.window="$wire.FunEnded($event.detail)"
+        @progress.window="$wire.FunInProgress($event.detail)" @done.window="$wire.FunEnded($event.detail)"
         x-on:created-func.window="Notes=true;AddFunctionsForm =false">
         <div class="text-white p-2 text-xs fixed left-5 bottom-0 m-2 z-40 w-16 ">
             <img src="{{asset('notenest/images/logo.png')}}" alt="Logo Package" srcset=""
@@ -14,10 +13,23 @@
             <div class="list py-14" x-show="Notes" x-transition>
                 <div
                     class="grid grid-cols-3 top-2/3 bg-white rounded-lg shadow relative z-40 mx-auto h-4/5 my-auto w-2/3 px-2 py-2 gap-2">
-                    <div>
+                    <div class="w-full flex justify-between col-span-full">
                         <span @click="OpenDraft = true;Notes =false"
                             class="fa fa-solid fa-file-pen text-slate-600 text-lg  mx-3 cursor-pointer">
                         </span>
+                        <div class="group relative w-1/6 flex justify-end">
+                            <span @click="OpenDraft = true;Notes =false"
+                                class="fa text-slate-600 text-lg mx-3 cursor-pointer fa-info group" data-tooltip-target="tooltip-info-project" >
+                            </span>
+                            <div id="tooltip-info-project" role="tooltip" class="group-hover:opacity-100 transition-opacity opacity-0 px-1  text-gray-100 rounded-md absolute -translate-x-1/2 translate-y-full mx-auto p-4 bg-gray-800/70  bottom-0 left-1/2 w-full">
+                                <ul class="grid gap-3">
+                                    <li class="flex align-middle text-[9px] justify-evenly">
+                                        <span class="creation-project capitalize text-left">Date de creation project</span>
+                                        <span class="date"></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <h1 class="title col-span-full text-center">Notes List</h1>
                     <div class="current border-2 border-slate-200 rounded-lg">
@@ -25,7 +37,7 @@
                             <div class="text-center w-full bg-slate-200 py-2">
                                 <div class="flex items-center justify-center gap-3">
                                     <span class="capitalize">Functions</span><span
-                                        class="bg-red-300 rounded-full px-2 text-xs py-2 text-white font-bold">{{count($AvailableFuncs)}}</span>
+                                        class="bg-red-300 rounded-full px-2.5 text-xs py-2 text-white font-bold">{{count($AvailableFuncs)}}</span>
                                 </div>
                             </div>
 
@@ -59,7 +71,7 @@
                             <div class="text-center w-full bg-slate-200 py-2">
                                 <div class="flex items-center justify-center gap-3">
                                     <span class="capitalize">in Progress</span><span
-                                        class="bg-yellow-300 rounded-full px-2 text-xs py-2 text-white font-bold">{{count($FuncsInProgress)}}</span>
+                                        class="bg-yellow-300 rounded-full  px-2.5 text-xs py-2 text-white font-bold">{{count($FuncsInProgress)}}</span>
                                 </div>
                             </div>
                             <div class="notes">
@@ -86,7 +98,7 @@
                             <div class="text-center w-full bg-slate-200 py-2">
                                 <div class="flex items-center justify-center gap-3">
                                     <span class="capitalize">Done</span><span
-                                        class="bg-green-300 rounded-full px-2 text-xs py-2 text-white font-bold">{{count($FuncsEnded)}}</span>
+                                        class="bg-green-300 rounded-full text-xs px-2.5 py-2 text-white font-bold">{{count($FuncsEnded)}}</span>
                                 </div>
                             </div>
                             <div class="notes">
