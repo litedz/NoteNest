@@ -4,7 +4,7 @@ namespace notenest\notenest\Commands;
 
 use Illuminate\Console\Command;
 
-class AboutNestCommand extends Command
+class AboutNoteNestCommand extends Command
 {
 
     public $signature = 'AboutNest';
@@ -14,6 +14,7 @@ class AboutNestCommand extends Command
 
     public function __invoke()
     {
+        $this->info('----------------------------------------------');
         $this->info('Author : LiteDz');
         $this->info('----------------------------------------------');
         $this->info('Link facebook : https://www.facebook.com/');

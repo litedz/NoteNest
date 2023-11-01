@@ -5,7 +5,7 @@ namespace notenest\notenest;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use notenest\notenest\Commands\InstallNotenest;
-use notenest\notenest\Commands\AboutNestCommand;
+use notenest\notenest\Commands\AboutNoteNestCommand;
 use notenest\notenest\Livewire\Note;
 
 class notenestServiceProvider extends ServiceProvider
@@ -20,7 +20,7 @@ class notenestServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallNotenest::class,
-                AboutNestCommand::class
+                AboutNoteNestCommand::class
             ]);
         }
 

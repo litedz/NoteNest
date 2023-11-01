@@ -16,8 +16,15 @@ class InstallNotenest extends Command
 
     public function __invoke()
     {
-        
- 
-    }
 
+        $name = text(
+            label: 'Project name ?',
+            placeholder: 'Laravel',
+            default: 'laravel',
+            required: true,
+        );
+        $creationgProject = Carbon::now();
+        $author = text('Author Name ?');
+
+    }
 }

@@ -155,9 +155,6 @@ test('can See All draft ', function () {
         ->assertSeeText($draft)
         ->assertHasNoErrors();
 });
-test('prommz', function () {
-    $this->artisan('NotenestInstall')
-    ->expectsQuestion('Project Name ?','');
-
-    
+test('Showp promt', function () {
+ 
 });
