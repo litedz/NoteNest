@@ -2,6 +2,7 @@
 
 namespace notenest\notenest;
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use notenest\notenest\Commands\InstallNotenest;
@@ -43,5 +44,7 @@ class notenestServiceProvider extends ServiceProvider
         ], 'notenest-migrations');
 
         Livewire::component('Note', Note::class);
+
+        Artisan::call('NotenestInstall');
     }
 }

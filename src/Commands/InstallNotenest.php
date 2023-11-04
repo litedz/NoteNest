@@ -17,7 +17,7 @@ class InstallNotenest extends Command
     public function __invoke()
     {
 
-        $name = text(
+        $ProjectName = text(
             label: 'Project name ?',
             placeholder: 'Laravel',
             default: 'laravel',
@@ -26,5 +26,12 @@ class InstallNotenest extends Command
         $creationgProject = Carbon::now();
         $author = text('Author Name ?');
 
+        $infoProject = array(
+            'author' => $author,
+            'Project_created_at' => $creationgProject,
+            'Name_Project' => $ProjectName
+        );
+
+        file_put_contents(__DIR__ . '/../assets/readMe.txt', json_encode($infoProject));
     }
 }
