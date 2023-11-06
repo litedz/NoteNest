@@ -9,7 +9,7 @@ use function Laravel\Prompts\text;
 
 class InstallNotenest extends Command
 {
-    public $signature = 'NotenestInstall';
+    public $signature = 'notenest:install';
 
     public $description = 'Install Package Notenest';
 

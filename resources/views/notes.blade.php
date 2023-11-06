@@ -2,6 +2,7 @@
     <div x-data="{ open: false, AddFunctionsForm: false,Notes:false ,OpenDraft:false}" x-cloak
         @progress.window="$wire.FunInProgress($event.detail)" @done.window="$wire.FunEnded($event.detail)"
         x-on:created-func.window="Notes=true;AddFunctionsForm =false">
+         @inject('carbon', 'Carbon\Carbon')
         <div class="text-white p-2 text-xs fixed left-5 bottom-0 m-2 z-40 w-16 ">
             <img src="{{asset('notenest/images/logo.png')}}" alt="Logo Package" srcset=""
                 class="rounded-full cursor-pointer" @click="open=true;Notes =true">
@@ -22,11 +23,26 @@
                                 class="fa text-slate-600 text-lg mx-3 cursor-pointer fa-info group" data-tooltip-target="tooltip-info-project" >
                             </span>
                             <div id="tooltip-info-project" role="tooltip" class="group-hover:opacity-100 transition-opacity opacity-0 px-1  text-gray-100 rounded-md absolute -translate-x-1/2 translate-y-full mx-auto p-4 bg-gray-800/70  bottom-0 left-1/2 w-full">
-                                <ul class="grid gap-3">
-                                    <li class="flex align-middle text-[9px] justify-evenly">
-                                        <span class="creation-project capitalize text-left">Date de creation project</span>
-                                        <span class="date"></span>
+                                <ul class="grid gap-3 justify-center">
+                                        <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
+                                        <span class="creation-project capitalize text-left">Project name :</span>
+                                        <span class="date">{{ $infoProject->Name_Project }}</span>
                                     </li>
+
+                                    <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
+                                        <span class="creation-project capitalize text-left">Start project :</span>
+                                        <span class="date">{{ $carbon->create($infoProject->Project_created_at)->format('Y / m / d') }}</span>
+                                    </li>
+                                     <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
+                                        <span class="creation-project capitalize text-left">Dead Line :</span>
+                                        <span class="date bg-slate-400 rounded p-1">{{ $carbon->create($infoProject->Project_created_at)->format('Y / m / d') }}</span>
+                                    </li>
+                                    <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
+                                        <span class="creation-project capitalize text-left">Author :</span>
+                                        <span class="date">{{ $infoProject->author }}</span>
+                                    </li>
+                                   
+                            
                                 </ul>
                             </div>
                         </div>
@@ -41,7 +57,7 @@
                                 </div>
                             </div>
 
-                            @inject('carbon', 'Carbon\Carbon')
+                           
                             <div class="notes">
                                 <ul class="gap-4 grid h-96 overflow-y-auto" id="current-func">
                                     @foreach($AvailableFuncs as $func)

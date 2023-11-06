@@ -45,6 +45,5 @@ class notenestServiceProvider extends ServiceProvider
 
         Livewire::component('Note', Note::class);
 
-        Artisan::call('NotenestInstall');
     }
 }

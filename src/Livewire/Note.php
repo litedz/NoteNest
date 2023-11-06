@@ -4,6 +4,8 @@ namespace notenest\notenest\Livewire;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use notenest\notenest\Models\draft;
 use notenest\notenest\Models\note as ModelsNote;
@@ -32,6 +34,8 @@ class Note extends Component
 
     public Collection $Drafts;
 
+    public $infoProject;
+
     public function rules(): array
     {
         return [
@@ -42,6 +46,11 @@ class Note extends Component
 
     public function mount(): void
     {
+        $pathFile = __DIR__ . '/../assets/readMe.txt';
+        $readMe = file_get_contents(__DIR__ . '/../assets/readMe.txt', false);
+        if (FILE::isFile($pathFile) && FILE::mimeType($pathFile) == 'application/json') {
+            $this->infoProject = json_decode($readMe);
+        }
         $this->GetFuncs();
     }
 
@@ -111,7 +120,6 @@ class Note extends Component
         ]);
 
         $createDraft ? $this->reset(['DraftName', 'DraftDescription']) && $this->GetFuncs() : '';
-
     }
 
     public function DeleteDraft(int $func_id): void
