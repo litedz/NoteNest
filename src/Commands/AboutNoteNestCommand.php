@@ -12,7 +12,7 @@ class AboutNoteNestCommand extends Command
     public $description = 'Test commande';
 
 
-    public function __invoke()
+    public function __invoke():void
     {
         $this->info('----------------------------------------------');
         $this->info('Author : LiteDz');

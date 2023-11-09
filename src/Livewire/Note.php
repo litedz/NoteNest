@@ -34,7 +34,7 @@ class Note extends Component
 
     public Collection $Drafts;
 
-    public $infoProject;
+    public object $infoProject;
 
     public function rules(): array
     {

@@ -26,7 +26,7 @@
                                 <ul class="grid gap-3 justify-center">
                                         <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
                                         <span class="creation-project capitalize text-left">Project name :</span>
-                                        <span class="date">{{ $infoProject->Name_Project }}</span>
+                                        <span class="date">{{ $infoProject->ProjectName }}</span>
                                     </li>
 
                                     <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
@@ -35,7 +35,7 @@
                                     </li>
                                      <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
                                         <span class="creation-project capitalize text-left">Dead Line :</span>
-                                        <span class="date bg-slate-400 rounded p-1">{{ $carbon->create($infoProject->Project_created_at)->format('Y / m / d') }}</span>
+                                        <span class="date bg-red-300 rounded p-1">{{ $carbon->create($infoProject->DeadLine)->format('Y / m / d') }}</span>
                                     </li>
                                     <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
                                         <span class="creation-project capitalize text-left">Author :</span>
@@ -59,7 +59,7 @@
 
                            
                             <div class="notes">
-                                <ul class="gap-4 grid h-96 overflow-y-auto" id="current-func">
+                                <ul class="gap-4 flex flex-col h-96 overflow-y-auto" id="current-func">
                                     @foreach($AvailableFuncs as $func)
                                     <li id="{{$func->id}}"
                                         class="flex group flex-row gap-2 items-baseline first:pt-2 border-b-2 pt-2 pb-2 px-1 hover:cursor-pointer">
@@ -91,10 +91,10 @@
                                 </div>
                             </div>
                             <div class="notes">
-                                <ul class="gap-4 grid h-96 overflow-y-auto shadow" id="progress-func">
+                                <ul class="gap-4 flex flex-col h-96 overflow-y-auto shadow" id="progress-func">
                                     @foreach($FuncsInProgress as $FunProgress)
                                     <li id="{{$FunProgress->id}}"
-                                        class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
+                                        class="flex flex-row gap-2 items-baseline hover:bg-slate-100 first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
                                         <div>
                                             <span class="fa fa-solid fa-spinner text-[8px] text-yellow-400"></span>
                                             <span class="text-xs">{{$FunProgress->function_name}}.</span>
@@ -118,10 +118,10 @@
                                 </div>
                             </div>
                             <div class="notes">
-                                <ul class="gap-4 grid h-96 overflow-y-auto shadow" id="finished-func">
+                                <ul class="gap-4 flex flex-col h-96 overflow-y-auto shadow" id="finished-func">
                                     @foreach($FuncsEnded as $funcEnded)
                                     <li id="{{$funcEnded->id}}"
-                                        class="flex flex-row gap-2 items-baseline first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
+                                        class="flex flex-row gap-2 items-baseline hover:bg-slate-100 first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
                                         <div>
                                             <span class="fa fa-check text-green-600 px-3"></span>
                                             <span class="text-xs"> {{$funcEnded->function_name}}.</span>

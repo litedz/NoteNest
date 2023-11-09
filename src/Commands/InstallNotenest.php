@@ -14,9 +14,8 @@ class InstallNotenest extends Command
     public $description = 'Install Package Notenest';
 
 
-    public function __invoke()
+    public function __invoke() :void
     {
-
         $ProjectName = text(
             label: 'Project name ?',
             placeholder: 'Laravel',
@@ -25,11 +24,13 @@ class InstallNotenest extends Command
         );
         $creationgProject = Carbon::now();
         $author = text('Author Name ?');
+        $DeadLine = text('DeadLine ?');
 
         $infoProject = array(
             'author' => $author,
             'Project_created_at' => $creationgProject,
-            'Name_Project' => $ProjectName
+            'DeadLine' => $DeadLine,
+            'ProjectName' => $ProjectName
         );
 
         file_put_contents(__DIR__ . '/../assets/readMe.txt', json_encode($infoProject));
