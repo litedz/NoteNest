@@ -2,12 +2,9 @@
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Artisan;
-use notenest\notenest\Commands\InstallNotenest;
 use notenest\notenest\Models\draft;
 use notenest\notenest\Models\note;
 use notenest\notenest\traits\status;
-use function Laravel\Prompts\text;
 
 use function Pest\Livewire\livewire;
 
@@ -156,5 +153,5 @@ test('can See All draft ', function () {
         ->assertHasNoErrors();
 });
 test('Showp promt', function () {
- 
+
 });

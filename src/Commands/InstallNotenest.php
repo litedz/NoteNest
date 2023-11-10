@@ -13,8 +13,7 @@ class InstallNotenest extends Command
 
     public $description = 'Install Package Notenest';
 
-
-    public function __invoke() :void
+    public function __invoke(): void
     {
         $ProjectName = text(
             label: 'Project name ?',
@@ -26,13 +25,13 @@ class InstallNotenest extends Command
         $author = text('Author Name ?');
         $DeadLine = text('DeadLine ?');
 
-        $infoProject = array(
+        $infoProject = [
             'author' => $author,
             'Project_created_at' => $creationgProject,
             'DeadLine' => $DeadLine,
-            'ProjectName' => $ProjectName
-        );
+            'ProjectName' => $ProjectName,
+        ];
 
-        file_put_contents(__DIR__ . '/../assets/readMe.txt', json_encode($infoProject));
+        file_put_contents(__DIR__.'/../assets/readMe.txt', json_encode($infoProject));
     }
 }
