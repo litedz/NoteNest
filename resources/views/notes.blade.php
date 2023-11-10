@@ -1,5 +1,5 @@
 <div>
-    <div x-data="{ open: false, AddFunctionsForm: false,Notes:false ,OpenDraft:false}" x-cloak
+    <div x-data="{ open: true, AddFunctionsForm: false,Notes:true ,OpenDraft:false}" x-cloak
         @progress.window="$wire.FunInProgress($event.detail)" @done.window="$wire.FunEnded($event.detail)"
         x-on:created-func.window="Notes=true;AddFunctionsForm =false">
         @inject('carbon', 'Carbon\Carbon')
@@ -119,7 +119,18 @@
                                 <ul class="gap-4 flex flex-col h-96 overflow-y-auto py-3 shadow" id="progress-func">
                                     @foreach($FuncsInProgress as $FunProgress)
                                     <li id="{{$FunProgress->id}}"
-                                        class="flex flex-row gap-2 items-baseline hover:bg-slate-100 first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
+                                        class="flex flex-col gap-2 items-baseline hover:bg-slate-100 first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
+                                               <div class="basis-full text-left">
+                                            <button type="button" 
+                                            :class="{
+                                                '!bg-green-600':'{{$func->priority}}' == 'LOW',
+                                                '!bg-sky-600':'{{$func->priority}}' == 'MEDIUM',
+                                                '!bg-red-600':'{{$func->priority}}' == 'HIGH',
+                                                }"
+                                                class="bg-sky-800 text-white text-[8px] font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-blue-300">
+                                                {{$func->priority}}
+                                            </button>
+                                        </div>
                                         <div>
                                             <span class="fa fa-solid fa-spinner text-[8px] text-yellow-400"></span>
                                             <span class="text-xs">{{$FunProgress->function_name}}.</span>
@@ -146,9 +157,20 @@
                                 <ul class="gap-4 flex flex-col h-96 overflow-y-auto py-3 shadow" id="finished-func">
                                     @foreach($FuncsEnded as $funcEnded)
                                     <li id="{{$funcEnded->id}}"
-                                        class="flex flex-row gap-2 items-baseline hover:bg-slate-100 first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
+                                        class="flex flex-col gap-2 items-baseline hover:bg-slate-100 first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
+                                                      <div class="basis-full text-left">
+                                            <button type="button" 
+                                            :class="{
+                                                '!bg-green-600':'{{$func->priority}}' == 'LOW',
+                                                '!bg-sky-600':'{{$func->priority}}' == 'MEDIUM',
+                                                '!bg-red-600':'{{$func->priority}}' == 'HIGH',
+                                                }"
+                                                class="bg-sky-800 text-white text-[8px] font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-blue-300">
+                                                {{$func->priority}}
+                                            </button>
+                                        </div>
                                         <div>
-                                            <span class="fa fa-check text-green-600 px-3"></span>
+                                            <span class="fa fa-check text-green-600 px-1 text-xs"></span>
                                             <span class="text-xs"> {{$funcEnded->function_name}}.</span>
                                         </div>
                                         <span class="time text-slate-500 text-[8px]">
