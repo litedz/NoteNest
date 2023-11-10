@@ -2,7 +2,7 @@
     <div x-data="{ open: false, AddFunctionsForm: false,Notes:false ,OpenDraft:false}" x-cloak
         @progress.window="$wire.FunInProgress($event.detail)" @done.window="$wire.FunEnded($event.detail)"
         x-on:created-func.window="Notes=true;AddFunctionsForm =false">
-         @inject('carbon', 'Carbon\Carbon')
+        @inject('carbon', 'Carbon\Carbon')
         <div class="text-white p-2 text-xs fixed left-5 bottom-0 m-2 z-40 w-16 ">
             <img src="{{asset('notenest/images/logo.png')}}" alt="Logo Package" srcset=""
                 class="rounded-full cursor-pointer" @click="open=true;Notes =true">
@@ -20,29 +20,34 @@
                         </span>
                         <div class="group relative w-1/6 flex justify-end">
                             <span @click="OpenDraft = true;Notes =false"
-                                class="fa text-slate-600 text-lg mx-3 cursor-pointer fa-info group" data-tooltip-target="tooltip-info-project" >
+                                class="fa text-slate-600 text-lg mx-3 cursor-pointer fa-info group"
+                                data-tooltip-target="tooltip-info-project">
                             </span>
-                            <div id="tooltip-info-project" role="tooltip" class="group-hover:opacity-100 transition-opacity opacity-0 px-1  text-gray-100 rounded-md absolute -translate-x-1/2 translate-y-full mx-auto p-4 bg-gray-800/70  bottom-0 left-1/2 w-full">
+                            <div id="tooltip-info-project" role="tooltip"
+                                class="group-hover:opacity-100 transition-opacity opacity-0 px-1  text-gray-100 rounded-md absolute -translate-x-1/2 translate-y-full mx-auto p-4 bg-gray-800/70  bottom-0 left-1/2 w-full">
                                 <ul class="grid gap-3 justify-center">
-                                        <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
+                                    <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
                                         <span class="creation-project capitalize text-left">Project name :</span>
                                         <span class="date">{{ $infoProject->ProjectName }}</span>
                                     </li>
 
                                     <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
                                         <span class="creation-project capitalize text-left">Start project :</span>
-                                        <span class="date">{{ $carbon->create($infoProject->Project_created_at)->format('Y / m / d') }}</span>
+                                        <span class="date">{{
+                                            $carbon->create($infoProject->Project_created_at)->format('Y / m / d')
+                                            }}</span>
                                     </li>
-                                     <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
+                                    <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
                                         <span class="creation-project capitalize text-left">Dead Line :</span>
-                                        <span class="date bg-red-300 rounded p-1">{{ $carbon->create($infoProject->DeadLine)->format('Y / m / d') }}</span>
+                                        <span class="date bg-red-300 rounded p-1">{{
+                                            $carbon->create($infoProject->DeadLine)->format('Y / m / d') }}</span>
                                     </li>
                                     <li class="flex align-middle text-[9px] justify-start gap-4 items-center">
                                         <span class="creation-project capitalize text-left">Author :</span>
                                         <span class="date">{{ $infoProject->author }}</span>
                                     </li>
-                                   
-                            
+
+
                                 </ul>
                             </div>
                         </div>
@@ -57,19 +62,39 @@
                                 </div>
                             </div>
 
-                           
+{{-- 
+       {{$func->priority}} === MEDIUM && '!text-red-600'
+                                             ||{{$func->priority}} === LOW && '!text-yellow-500' 
+                                             || {{$func->priority}} === HIGH && '!text-indigo-600'
+                                             "  --}}
                             <div class="notes">
                                 <ul class="gap-4 flex flex-col h-96 overflow-y-auto py-3" id="current-func">
                                     @foreach($AvailableFuncs as $func)
                                     <li id="{{$func->id}}"
-                                        class="flex group flex-row gap-2 items-baseline first:pt-2 border-b-2 pt-2 pb-2 px-1 hover:cursor-pointer">
-                                        <div class="basis-1/2">
-                                            <span class="fa fa-circle text-[8px] text-red-400"></span>
-                                            <span class="text-xs">{{$func->function_name}}</span>
+                                        class="flex group flex-col items-baseline first:pt-2 border-b-2 pt-2 pb-2 px-1 hover:cursor-pointer">
+                                        <div class="basis-full text-left">
+                                            <button type="button" 
+                                            :class="{
+                                                '!bg-green-600':'{{$func->priority}}' == 'LOW',
+                                                '!bg-sky-600':'{{$func->priority}}' == 'MEDIUM',
+                                                '!bg-red-600':'{{$func->priority}}' == 'HIGH',
+                                                }"
+                                                class="bg-sky-800 text-white text-[8px] font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-blue-300">
+                                                {{$func->priority}}
+                                            </button>
                                         </div>
-                                        <div class="basis-1/2  text-right px-2" wire:key="{{rand()}}">
-                                            <button wire:click="DeleteFunc({{$func->id}})" type="button"
-                                                class="bg-red-500 text-white text-xs opacity-0 p-2  transition group-hover:opacity-100">Delete</button>
+                                        <div class="flex flex-row row-span-full gap-2 w-full">
+                                            <div class="basis-1/2">
+                                                <span class="fa fa-circle text-[8px] text-red-400"></span>
+                                                <span class="text-xs">{{$func->function_name}}</span>
+                                            </div>
+                                            <div class="basis-1/2  text-right px-2" wire:key="{{rand()}}">
+                                                <button wire:click="DeleteFunc({{$func->id}})" type="button"
+                                                    class="bg-red-500 text-white text-xs opacity-0 p-2  transition group-hover:opacity-100 rounded">
+                                                    Delete
+                                                </button>
+
+                                            </div>
                                         </div>
                                     </li>
                                     @endforeach
