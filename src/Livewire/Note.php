@@ -34,6 +34,7 @@ class Note extends Component
     public Collection $Drafts;
 
     public object $infoProject;
+
     public bool $orderFun = true;
 
     public function rules(): array
@@ -128,13 +129,13 @@ class Note extends Component
         $this->reset(['DraftName', 'DraftDescription']);
         $this->GetFuncs();
     }
+
     public function OrderByPriority(): void
     {
-   
-        $this->AvailableFuncs =  $this->orderFun ?
-         ModelsNote::where('status', status::$AWAIT)->orderBy('priority','desc')->get() : 
-         ModelsNote::where('status', status::$AWAIT)->orderBy('priority','asc')->get();
-         
+
+        $this->AvailableFuncs = $this->orderFun ?
+            ModelsNote::where('status', status::$AWAIT)->orderBy('priority', 'desc')->get() :
+            ModelsNote::where('status', status::$AWAIT)->orderBy('priority', 'asc')->get();
     }
 
     public function render(): View
