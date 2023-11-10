@@ -1,5 +1,5 @@
 <div>
-    <div x-data="{ open: true, AddFunctionsForm: false,Notes:true ,OpenDraft:false}" x-cloak
+    <div  x-data="{ open: false, AddFunctionsForm: false,Notes:false ,OpenDraft:false}" x-cloak
         @progress.window="$wire.FunInProgress($event.detail)" @done.window="$wire.FunEnded($event.detail)"
         x-on:created-func.window="Notes=true;AddFunctionsForm =false">
         @inject('carbon', 'Carbon\Carbon')
@@ -46,8 +46,6 @@
                                         <span class="creation-project capitalize text-left">Author :</span>
                                         <span class="date">{{ $infoProject->author }}</span>
                                     </li>
-
-
                                 </ul>
                             </div>
                         </div>
@@ -57,29 +55,28 @@
                         <div class="step">
                             <div class="text-center w-full bg-slate-200 py-2">
                                 <div class="flex items-center justify-center gap-3">
-                                    <span class="capitalize">Functions</span><span
+                                    <span wire:key='{{rand()}}'
+                                        class="text-xs fa-solid fa-arrow-up-wide-short text-slate-600 cursor-pointer"
+                                        @click="$wire.OrderByPriority;$wire.$toggle('orderFun')"></span>
+                                    <span class="capitalize">Functions</span>
+                                    <span
                                         class="bg-red-300 rounded-full px-2.5 text-xs py-2 text-white font-bold">{{count($AvailableFuncs)}}</span>
                                 </div>
                             </div>
 
-{{-- 
-       {{$func->priority}} === MEDIUM && '!text-red-600'
-                                             ||{{$func->priority}} === LOW && '!text-yellow-500' 
-                                             || {{$func->priority}} === HIGH && '!text-indigo-600'
-                                             "  --}}
                             <div class="notes">
                                 <ul class="gap-4 flex flex-col h-96 overflow-y-auto py-3" id="current-func">
                                     @foreach($AvailableFuncs as $func)
                                     <li id="{{$func->id}}"
                                         class="flex group flex-col items-baseline first:pt-2 border-b-2 pt-2 pb-2 px-1 hover:cursor-pointer">
                                         <div class="basis-full text-left">
-                                            <button type="button" 
-                                            :class="{
+                                            <button type="button" :class="{
                                                 '!bg-green-600':'{{$func->priority}}' == 'LOW',
                                                 '!bg-sky-600':'{{$func->priority}}' == 'MEDIUM',
                                                 '!bg-red-600':'{{$func->priority}}' == 'HIGH',
                                                 }"
-                                                class="bg-sky-800 text-white text-[8px] font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-blue-300">
+                                                class="bg-sky-800 text-white text-[8px] font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-blue-300"
+                                                wire:key='Btn-{{rand()}}-{{$func->id}}'>
                                                 {{$func->priority}}
                                             </button>
                                         </div>
@@ -118,17 +115,17 @@
                             <div class="notes">
                                 <ul class="gap-4 flex flex-col h-96 overflow-y-auto py-3 shadow" id="progress-func">
                                     @foreach($FuncsInProgress as $FunProgress)
-                                    <li id="{{$FunProgress->id}}"
+                                    <li id="{{$FunProgress->id}}" wire:key='Progress-{{$FunProgress->id}}'
                                         class="flex flex-col gap-2 items-baseline hover:bg-slate-100 first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
-                                               <div class="basis-full text-left">
-                                            <button type="button" 
-                                            :class="{
-                                                '!bg-green-600':'{{$func->priority}}' == 'LOW',
-                                                '!bg-sky-600':'{{$func->priority}}' == 'MEDIUM',
-                                                '!bg-red-600':'{{$func->priority}}' == 'HIGH',
+                                        <div class="basis-full text-left">
+                                            <button type="button" :class="{
+                                                '!bg-green-600':'{{$FunProgress->priority}}' == 'LOW',
+                                                '!bg-sky-600':'{{$FunProgress->priority}}' == 'MEDIUM',
+                                                '!bg-red-600':'{{$FunProgress->priority}}' == 'HIGH',
                                                 }"
-                                                class="bg-sky-800 text-white text-[8px] font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-blue-300">
-                                                {{$func->priority}}
+                                                class="bg-sky-800 text-white text-[8px] font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-blue-300"
+                                                wire:key='Btn-{{rand()}}-{{$FunProgress->id}}'>
+                                                {{$FunProgress->priority}}
                                             </button>
                                         </div>
                                         <div>
@@ -158,15 +155,14 @@
                                     @foreach($FuncsEnded as $funcEnded)
                                     <li id="{{$funcEnded->id}}"
                                         class="flex flex-col gap-2 items-baseline hover:bg-slate-100 first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
-                                                      <div class="basis-full text-left">
-                                            <button type="button" 
-                                            :class="{
-                                                '!bg-green-600':'{{$func->priority}}' == 'LOW',
-                                                '!bg-sky-600':'{{$func->priority}}' == 'MEDIUM',
-                                                '!bg-red-600':'{{$func->priority}}' == 'HIGH',
+                                        <div class="basis-full text-left">
+                                            <button type="button" :class="{
+                                                '!bg-green-600':'{{$funcEnded->priority}}' == 'LOW',
+                                                '!bg-sky-600':'{{$funcEnded->priority}}' == 'MEDIUM',
+                                                '!bg-red-600':'{{$funcEnded->priority}}' == 'HIGH',
                                                 }"
                                                 class="bg-sky-800 text-white text-[8px] font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-blue-300">
-                                                {{$func->priority}}
+                                                {{$funcEnded->priority}}
                                             </button>
                                         </div>
                                         <div>
