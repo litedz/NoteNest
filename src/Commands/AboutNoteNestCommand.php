@@ -6,13 +6,11 @@ use Illuminate\Console\Command;
 
 class AboutNoteNestCommand extends Command
 {
-
     public $signature = 'AboutNest';
 
     public $description = 'Test commande';
 
-
-    public function __invoke():void
+    public function __invoke(): void
     {
         $this->info('----------------------------------------------');
         $this->info('Author : LiteDz');
