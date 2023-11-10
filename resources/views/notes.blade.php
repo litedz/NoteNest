@@ -59,7 +59,7 @@
 
                            
                             <div class="notes">
-                                <ul class="gap-4 flex flex-col h-96 overflow-y-auto" id="current-func">
+                                <ul class="gap-4 flex flex-col h-96 overflow-y-auto py-3" id="current-func">
                                     @foreach($AvailableFuncs as $func)
                                     <li id="{{$func->id}}"
                                         class="flex group flex-row gap-2 items-baseline first:pt-2 border-b-2 pt-2 pb-2 px-1 hover:cursor-pointer">
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                             <div class="notes">
-                                <ul class="gap-4 flex flex-col h-96 overflow-y-auto shadow" id="progress-func">
+                                <ul class="gap-4 flex flex-col h-96 overflow-y-auto py-3 shadow" id="progress-func">
                                     @foreach($FuncsInProgress as $FunProgress)
                                     <li id="{{$FunProgress->id}}"
                                         class="flex flex-row gap-2 items-baseline hover:bg-slate-100 first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
@@ -118,7 +118,7 @@
                                 </div>
                             </div>
                             <div class="notes">
-                                <ul class="gap-4 flex flex-col h-96 overflow-y-auto shadow" id="finished-func">
+                                <ul class="gap-4 flex flex-col h-96 overflow-y-auto py-3 shadow" id="finished-func">
                                     @foreach($FuncsEnded as $funcEnded)
                                     <li id="{{$funcEnded->id}}"
                                         class="flex flex-row gap-2 items-baseline hover:bg-slate-100 first:pt-2 border-b-2 pb-2 px-1 hover:cursor-pointer justify-between">
