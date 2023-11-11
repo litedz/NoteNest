@@ -1,5 +1,5 @@
 <div>
-    <div  x-data="{ open: false, AddFunctionsForm: false,Notes:false ,OpenDraft:false}" x-cloak
+    <div x-data="{ open: false, AddFunctionsForm: false,Notes:false ,OpenDraft:false}" x-cloak
         @progress.window="$wire.FunInProgress($event.detail)" @done.window="$wire.FunEnded($event.detail)"
         x-on:created-func.window="Notes=true;AddFunctionsForm =false">
         @inject('carbon', 'Carbon\Carbon')
@@ -51,6 +51,8 @@
                         </div>
                     </div>
                     <h1 class="title col-span-full text-center">Notes List</h1>
+
+                    {{-- available function --}}
                     <div class="current border-2 border-slate-200 rounded-lg">
                         <div class="step">
                             <div class="text-center w-full bg-slate-200 py-2">
@@ -68,7 +70,7 @@
                                 <ul class="gap-4 flex flex-col h-96 overflow-y-auto py-3" id="current-func">
                                     @foreach($AvailableFuncs as $func)
                                     <li id="{{$func->id}}"
-                                        class="flex group flex-col items-baseline first:pt-2 border-b-2 pt-2 pb-2 px-1 hover:cursor-pointer">
+                                        class=" relative flex group flex-col items-baseline first:pt-2 border-b-2 pt-2 pb-2 px-1 hover:cursor-pointer">
                                         <div class="basis-full text-left">
                                             <button type="button" :class="{
                                                 '!bg-green-600':'{{$func->priority}}' == 'LOW',
@@ -93,6 +95,10 @@
 
                                             </div>
                                         </div>
+                                        <div class="description group-hover:opacity-100 opacity-0 transition-all p-4 rounded text-slate-200 absolute w-1/2wi bg-gray-700/70 " id="tooltip-description-{{$func->id + rand()}}" role="tooltip"
+                                            >
+                                            {{$func->description}}
+                                        </div>
                                     </li>
                                     @endforeach
 
@@ -104,6 +110,7 @@
                             </div>
                         </div>
                     </div>
+                    {{--  function in progress --}}
                     <div class="in-progress border-2 border-slate-200 rounded-lg">
                         <div class="step">
                             <div class="text-center w-full bg-slate-200 py-2">
@@ -142,6 +149,7 @@
                             </div>
                         </div>
                     </div>
+                    {{-- Function Ended --}}
                     <div class="finished border-2 border-slate-200 rounded-lg">
                         <div class="step">
                             <div class="text-center w-full bg-slate-200 py-2">
