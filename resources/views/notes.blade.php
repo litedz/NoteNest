@@ -52,17 +52,31 @@
                     </div>
                     <h1 class="title col-span-full text-center">Notes List</h1>
 
+                    <div class="time-estimate col-span-full flex gap-3 text-xs" bis_skin_checked="1"><span>Time Estimate :</span>
+                        <span class="font-bold text-blue-500 font-mono">
+
+                     {{
+
+                        $carbon->createFromDate('Y-M-J','2012-02-10')->format('Y')
+                     }}
+                        </span>
+                    </div>
                     {{-- available function --}}
                     <div class="current border-2 border-slate-200 rounded-lg">
                         <div class="step">
-                            <div class="text-center w-full bg-slate-200 py-2">
-                                <div class="flex items-center justify-center gap-3">
-                                    <span wire:key='{{rand()}}'
-                                        class="text-xs fa-solid fa-arrow-up-wide-short text-slate-600 cursor-pointer"
-                                        @click="$wire.OrderByPriority;$wire.$toggle('orderFun')"></span>
-                                    <span class="capitalize">Functions</span>
-                                    <span
-                                        class="bg-red-300 rounded-full px-2.5 text-xs py-2 text-white font-bold">{{count($AvailableFuncs)}}</span>
+                            <div class="w-full bg-slate-200 py-2">
+                                <div class="flex items-center justify-center gap-3 px-3">
+                                    <div class="basis-1/2 text-right">
+                                        <span wire:key='{{rand()}}'
+                                            class="text-xs fa-solid fa-arrow-up-wide-short text-slate-600 cursor-pointer"
+                                            @click="$wire.OrderByPriority;$wire.$toggle('orderFun')"></span>
+                                        <span class="capitalize">Functions</span>
+
+                                    </div>
+                                    <div class="flex justify-end basis-1/2">
+                                        <span
+                                            class="border-l px-2  font-semibold  bg-red-400 text-white rounded">{{count($AvailableFuncs)}}</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -95,8 +109,8 @@
 
                                             </div>
                                         </div>
-                                        <div class="description group-hover:opacity-100 opacity-0 transition-all p-4 rounded text-slate-200 absolute w-1/2wi bg-gray-700/70 " id="tooltip-description-{{$func->id + rand()}}" role="tooltip"
-                                            >
+                                        <div class="description group-hover:opacity-100 opacity-0 transition-all p-4 top-0 rounded text-slate-200 absolute w-2/3 z-10 bg-gray-700/70 "
+                                            id="tooltip-description-{{$func->id + rand()}}" role="tooltip">
                                             {{$func->description}}
                                         </div>
                                     </li>
@@ -110,13 +124,18 @@
                             </div>
                         </div>
                     </div>
-                    {{--  function in progress --}}
+                    {{-- function in progress --}}
                     <div class="in-progress border-2 border-slate-200 rounded-lg">
                         <div class="step">
-                            <div class="text-center w-full bg-slate-200 py-2">
-                                <div class="flex items-center justify-center gap-3">
-                                    <span class="capitalize">in Progress</span><span
-                                        class="bg-yellow-300 rounded-full  px-2.5 text-xs py-2 text-white font-bold">{{count($FuncsInProgress)}}</span>
+                            <div class="w-full bg-slate-200 py-2">
+                                <div class="flex items-center justify-center gap-3 px-3">
+                                    <div class="basis-1/2 text-right">
+                                        <span class="capitalize">In Progress</span>
+                                    </div>
+                                    <div class="flex justify-end basis-1/2">
+                                        <span
+                                            class="border-l px-2 border-yellow-400 font-semibold  bg-yellow-400 text-white rounded">{{count($FuncsInProgress)}}</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="notes">
@@ -152,10 +171,15 @@
                     {{-- Function Ended --}}
                     <div class="finished border-2 border-slate-200 rounded-lg">
                         <div class="step">
-                            <div class="text-center w-full bg-slate-200 py-2">
-                                <div class="flex items-center justify-center gap-3">
-                                    <span class="capitalize">Done</span><span
-                                        class="bg-green-300 rounded-full text-xs px-2.5 py-2 text-white font-bold">{{count($FuncsEnded)}}</span>
+                            <div class="w-full bg-slate-200 py-2">
+                                <div class="flex items-center justify-center gap-3 px-3">
+                                    <div class="basis-1/2 text-right">
+                                        <span class="capitalize">Done</span>
+                                    </div>
+                                    <div class="flex justify-end basis-1/2">
+                                        <span
+                                            class="border-l px-2 border-green-400 font-semibold  bg-green-400 text-white rounded">{{count($FuncsEnded)}}</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="notes">
@@ -222,7 +246,7 @@
                     <select id="select-priority" title="select prioritys" wire:model="funcPriority"
                         class="bg-gray-50 mb-5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Choose a priority</option>
-                        <option value="HIGHee" class="uppercase">HIGH</option>
+                        <option value="HIGH" class="uppercase">HIGH</option>
                         <option value="MEDIUM" class="capitalize">medium</option>
                         <option value="LOW" class="capitalize">low</option>
                     </select>
@@ -232,7 +256,7 @@
                 <div>
                     <ul class="text-xs text-slate-500 grid gap-3 w-10">
                         <li class="flex items-center gap-4 justify-between">
-                            <span class="uppercase">height</span>
+                            <span class="uppercase">high</span>
                             <span class="bg-red-500 relative h-3 rounded-full w-3"></span>
                         </li>
                         <li class="flex items-center gap-4 justify-between">

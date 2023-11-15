@@ -53,6 +53,7 @@ class Note extends Component
             $this->infoProject = json_decode($readMe);
         }
         $this->GetFuncs();
+
     }
 
     public function booted(): void

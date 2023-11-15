@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 use function Laravel\Prompts\text;
+use function Laravel\Prompts\warning;
 
 class InstallNotenest extends Command
 {
@@ -22,8 +23,31 @@ class InstallNotenest extends Command
             required: true,
         );
         $creationgProject = Carbon::now();
-        $author = text('Author Name ?');
-        $DeadLine = text('DeadLine ?');
+        $author = text(label: 'Author Name ?', placeholder: 'Lite Dz', default: 'Unknown');
+        $DeadLine = text(
+            label: 'DeadLine ?',
+            placeholder: '2012/12/12'
+        );
+
+        if (! empty($DeadLine)) {
+
+            //check for correct Format
+            $checkValidFormat = Carbon::hasFormat($DeadLine, 'Y/m/d');
+
+            if (! $checkValidFormat) {
+                warning('invalid formate date');
+
+                while (! $checkValidFormat) {
+
+                    $DeadLine = text('DeadLine ?');
+                    $checkValidFormat = Carbon::hasFormat($DeadLine, 'Y/m/d');
+
+                    if (empty($DeadLine)) {
+                        $checkValidFormat = true;
+                    }
+                }
+            }
+        }
 
         $infoProject = [
             'author' => $author,
@@ -31,7 +55,6 @@ class InstallNotenest extends Command
             'DeadLine' => $DeadLine,
             'ProjectName' => $ProjectName,
         ];
-
         file_put_contents(__DIR__.'/../assets/readMe.txt', json_encode($infoProject));
     }
 }
