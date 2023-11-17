@@ -52,13 +52,13 @@
                     </div>
                     <h1 class="title col-span-full text-center">Notes List</h1>
 
-                    <div class="time-estimate col-span-full flex gap-3 text-xs" bis_skin_checked="1"><span>Time Estimate :</span>
+                    <div class="time-estimate col-span-full flex gap-3 text-xs" bis_skin_checked="1"><span>Time Estimate
+                            :</span>
                         <span class="font-bold text-blue-500 font-mono">
 
-                     {{
-
-                        $carbon->createFromDate('Y-M-J','2012-02-10')->format('Y')
-                     }}
+                            {{
+                            $carbon::parse($carbon->create($infoProject->Project_created_at))->longAbsoluteDiffForHumans($carbon->create($infoProject->DeadLine),false)
+                            }}
                         </span>
                     </div>
                     {{-- available function --}}

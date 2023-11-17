@@ -29,15 +29,15 @@ class InstallNotenest extends Command
             placeholder: '2012/12/12'
         );
 
-        if (! empty($DeadLine)) {
+        if (!empty($DeadLine)) {
 
             //check for correct Format
             $checkValidFormat = Carbon::hasFormat($DeadLine, 'Y/m/d');
 
-            if (! $checkValidFormat) {
+            if (!$checkValidFormat) {
                 warning('invalid formate date');
 
-                while (! $checkValidFormat) {
+                while (!$checkValidFormat) {
 
                     $DeadLine = text('DeadLine ?');
                     $checkValidFormat = Carbon::hasFormat($DeadLine, 'Y/m/d');
@@ -52,9 +52,9 @@ class InstallNotenest extends Command
         $infoProject = [
             'author' => $author,
             'Project_created_at' => $creationgProject,
-            'DeadLine' => $DeadLine,
+            'DeadLine' => date_create($DeadLine)->format('Y-m-d'),
             'ProjectName' => $ProjectName,
         ];
-        file_put_contents(__DIR__.'/../assets/readMe.txt', json_encode($infoProject));
+        file_put_contents(__DIR__ . '/../assets/readMe.txt', json_encode($infoProject));
     }
 }
