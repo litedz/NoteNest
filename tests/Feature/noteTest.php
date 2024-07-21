@@ -152,6 +152,4 @@ test('can See All draft ', function () {
         ->assertSeeText($draft)
         ->assertHasNoErrors();
 });
-test('Showp promt', function () {
-
-});
+test('Showp promt', function () {});

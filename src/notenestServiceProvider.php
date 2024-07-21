@@ -10,9 +10,7 @@ use notenest\notenest\Livewire\Note;
 
 class notenestServiceProvider extends ServiceProvider
 {
-    public function register()
-    {
-    }
+    public function register() {}
 
     public function boot(): void
     {
