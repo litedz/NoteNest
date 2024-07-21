@@ -10,7 +10,7 @@
         <div class="fixed top-0  right-0 w-full h-full z-40 " x-show="open" x-transition>
             <span class="absolute right-0 top-0 fa fa-remove z-50 text-white font-bold text-lg cursor-pointer m-3"
                 @click="open = false"></span>
-            <div class="overlay absolute top-0 left-0 z-10 bg-gray-700 opacity-30 h-full w-full"></div>
+            <div class="overlay absolute top-0 left-0 z-10 bg-gray-600 opacity-30 h-full w-full"></div>
             <div class="list py-14" x-show="Notes" x-transition>
                 <div
                     class="grid grid-cols-3 top-2/3 bg-white rounded-lg shadow relative z-40 mx-auto h-4/5 my-auto w-2/3 px-2 py-2 gap-2">
